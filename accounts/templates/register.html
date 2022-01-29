@@ -1,0 +1,80 @@
+{% extends 'components/_mainLayout.html' %}
+{% block content %}
+
+    <!-- Breadcrumb Section Start -->
+    <div class="section">
+
+        <!-- Breadcrumb Area Start -->
+        <div class="breadcrumb-area bg-light">
+            <div class="container-fluid">
+                <div class="breadcrumb-content text-center">
+                    <h1 class="title">Register</h1>
+                    <ul>
+                        <li>
+                            <a href="{% url "home" %}">Home</a>
+                        </li>
+                        <li class="active">Register</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Breadcrumb Area End -->
+
+    </div>
+    <!-- Breadcrumb Section End -->
+
+    <!-- Login | Register Section Start -->
+    <div class="section section-margin">
+        <div class="container">
+
+            <div class="d-flex justify-content-center row">
+                <div class="col-lg-6 col-md-8 m-auto m-lg-0 pb-10">
+                    <!-- Register Wrapper Start -->
+                    <div class="register-wrapper">
+
+                        <!-- Login Title & Content Start -->
+                        <div class="section-content text-center mb-5">
+                            <h2 class="title mb-2">Create Account</h2>
+                            <p class="desc-content">Please Register using account detail bellow.</p>
+                        </div>
+                        <!-- Login Title & Content End -->
+
+                        <!-- Form Action Start -->
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="single-input-item mb-3">
+                                <span class="text-danger">{{ register_form.email.errors }}</span>
+                                {{ register_form.email }}
+                            </div>
+                            <div class="single-input-item mb-3">
+                                <span class="text-danger">{{ register_form.username.errors }}</span>
+                                {{ register_form.username }}
+                            </div>
+                            <div class="single-input-item mb-3">
+                                <span class="text-danger">{{ register_form.password1.errors }}</span>
+                                {{ register_form.password1 }}
+                            </div>
+                            <div class="single-input-item mb-3">
+                                <span class="text-danger">{{ register_form.password2.errors }}</span>
+                                {{ register_form.password2 }}
+                            </div>
+
+                            <!-- Register Button Start -->
+                            <div class="single-input-item mb-3">
+                                <button class="btn btn btn-dark btn-hover-primary rounded-0">Register</button>
+                            </div>
+                            <!-- Register Button End -->
+
+                        </form>
+                        <!-- Form Action End -->
+
+                    </div>
+                    <!-- Register Wrapper End -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- Login | Register Section End -->
+
+{% endblock %}

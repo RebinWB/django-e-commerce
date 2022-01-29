@@ -1,0 +1,191 @@
+{% extends "components/_mainLayout.html" %}
+{% load static %}
+
+{% block content %}
+
+
+    <!-- Breadcrumb Section Start -->
+    <div class="section">
+
+        <!-- Breadcrumb Area Start -->
+        <div class="breadcrumb-area bg-light">
+            <div class="container-fluid">
+                <div class="breadcrumb-content text-center">
+                    <h1 class="title">Shopping Cart</h1>
+                    <ul>
+                        <li>
+                            <a href="index.html">Home </a>
+                        </li>
+                        <li class="active"> Shopping Cart</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Breadcrumb Area End -->
+
+    </div>
+    <!-- Breadcrumb Section End -->
+
+    <!-- Shopping Cart Section Start -->
+    <div class="section section-margin">
+        <div class="container">
+            {% if order != None and cart|length > 0 %}
+                <div class="row">
+                    <div class="col-12">
+
+                        <!-- Cart Table Start -->
+                        <div class="cart-table table-responsive">
+                            <table class="table table-bordered">
+
+                                <!-- Table Head Start -->
+                                <thead>
+                                <tr>
+                                    <th class="pro-thumbnail">Image</th>
+                                    <th class="pro-title">Product</th>
+                                    <th class="pro-price">Price</th>
+                                    <th class="pro-quantity">Quantity</th>
+                                    <th class="pro-subtotal">Total</th>
+                                    <th class="pro-remove">Remove</th>
+                                </tr>
+                                </thead>
+                                <!-- Table Head End -->
+
+                                <!-- Table Body Start -->
+                                <tbody>
+                                {% for item in cart %}
+                                    <tr>
+                                    {% if item.product.image %}
+                                        <td class="pro-thumbnail"><a href="{{ item.product.get_absolute_url }}"><img
+                                                class="img-fluid"
+                                                src="{{ item.product.image.url }}"
+                                                alt="{{ item.product.name }}" style="width: 100px; height: 100px;"/></a></td>
+                                        {% else %}
+                                        <td class="pro-thumbnail"><a href="{{ item.product.get_absolute_url }}"><img
+                                                class="img-fluid"
+                                                src="{% static "assets/images/products/small-product/1.jpg" %}"
+                                                alt="Product" style="width: 100px; height: 100px;"/></a></td>
+                                        {% endif %}
+                                        <td class="pro-title"><a
+                                                href="{{ item.product.get_absolute_url }}">{{ item.product.name }} </a><br>
+                                            <p class="text-black-50">Size: {{ item.size }}</p></td>
+                                        <td class="pro-price"><span>{{ item.product.price }}</span></td>
+                                        <td class="pro-quantity">
+                                            <div class="quantity">
+                                                <div class="cart-plus-minus">
+                                                    <input class="cart-plus-minus-box" value="{{ item.quantity }}"
+                                                           type="text">
+                                                    <div class="dec qtybutton">-</div>
+                                                    <div class="inc qtybutton">+</div>
+                                                    <div class="dec qtybutton"><i class="fa fa-minus"></i></div>
+                                                    <div class="inc qtybutton"><i class="fa fa-plus"></i></div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="pro-subtotal"><span>{{ item.total }}</span></td>
+                                        <td class="pro-remove"><a href="{% url "remove_item" cart_id=item.id %}"><i
+                                                class="pe-7s-trash"></i></a></td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                                <!-- Table Body End -->
+
+                            </table>
+                        </div>
+                        <!-- Cart Table End -->
+
+                        <!-- Cart Update Option Start -->
+                        <div class="cart-update-option d-block d-md-flex justify-content-between">
+
+                            <!-- Apply Coupon Wrapper Start -->
+                            <div class="apply-coupon-wrapper">
+                                <form action="{% url "coupon-code" %}" method="post" class=" d-block d-md-flex">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="next" value="{{ request.path }}"/>
+                                    {{ coupon_form.code }}
+                                    <button class="btn btn-dark btn-hover-primary rounded-0">Apply Coupon</button>
+                                </form>
+                                {% if messages %}
+                                        {% for message in messages %}
+                                            <div class="{% if message.tags %}alert-{{ message.tags }} text-center p-3 mt-3 rounded-3{% endif %}">{{ message }}</div>
+                                        {% endfor %}
+                                {% endif %}
+                            </div>
+                            <!-- Apply Coupon Wrapper End -->
+                        </div>
+                        <!-- Cart Update Option End -->
+
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-lg-5 ms-auto col-custom">
+
+                        <!-- Cart Calculation Area Start -->
+                        <div class="cart-calculator-wrapper">
+
+                            <!-- Cart Calculate Items Start -->
+                            <div class="cart-calculate-items">
+
+                                <!-- Cart Calculate Items Title Start -->
+                                <h3 class="title">Cart Totals</h3>
+                                <!-- Cart Calculate Items Title End -->
+
+                                <!-- Responsive Table Start -->
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <tr>
+                                            <td>Sub Total</td>
+                                            <td>{{ order.total }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Discount</td>
+                                            {% if order.discount != None %}
+                                                <td>{{ order.discount }}</td>
+                                            {% else %}
+                                                <td>0</td>
+                                            {% endif %}
+
+                                        </tr>
+                                        <tr class="total">
+                                            <td>Finally Price</td>
+                                            {% if order.finally_total != None %}
+                                                <td class="total-amount">{{ order.finally_total }}</td>
+                                            {% else %}
+                                                <td class="total-amount">{{ order.total }}</td>
+                                            {% endif %}
+                                        </tr>
+                                    </table>
+                                </div>
+                                <!-- Responsive Table End -->
+
+                            </div>
+                            <!-- Cart Calculate Items End -->
+
+                            <!-- Cart Checktout Button Start -->
+                            <a href="{% url "order_detail" %}" class="btn btn-dark btn-hover-primary rounded-0 w-100">Proceed
+                                To
+                                Checkout</a>
+                            <!-- Cart Checktout Button End -->
+
+                        </div>
+                        <!-- Cart Calculation Area End -->
+
+                    </div>
+                </div>
+
+                </div>
+                </div>
+                <!-- Shopping Cart Section End -->
+            {% else %}
+                <div class="container">
+                    <div class="row">
+                        <div class="alert-warning p-3 text-center rounded-3 mb-10">
+                            Your Cart is Empty!!<a href="{% url "products" %}"> Go to Shop</a>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+
+{% endblock %}

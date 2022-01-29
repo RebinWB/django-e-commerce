@@ -1,0 +1,86 @@
+{% extends "components/_mainLayout.html" %}
+{% block content %}
+    <div class="d-flex justify-content-center">
+        <div class="col-lg-8 col-12 mb-4">
+
+            <!-- Your Order Area Start -->
+            <div class="your-order-area border">
+
+                <!-- Title Start -->
+                <h3 class="title">Your Order</h3>
+                <!-- Title End -->
+
+                <!-- Your Order Table Start -->
+                <div class="your-order-table table-responsive">
+                    <table class="table">
+
+                        <!-- Table Head Start -->
+                        <thead>
+                        <tr class="cart-product-head">
+                            <th class="cart-product-name text-start">Product</th>
+                            <th class="cart-product-total text-end">Total</th>
+                        </tr>
+                        </thead>
+                        <!-- Table Head End -->
+
+                        <!-- Table Body Start -->
+                        <tbody>
+                        {% for product in open_order_products %}
+                            <tr class="cart_item">
+
+                                <td class="cart-product-name text-start ps-0"> {{ product.product.name }}<strong
+                                        class="product-quantity">
+                                    × {{ product.quantity }}</strong><span> (Size: {{ product.size }})</span></td>
+                                <td class="cart-product-total text-end pe-0"><span
+                                        class="amount">${{ product.total }}</span></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                        <!-- Table Body End -->
+
+                        <!-- Table Footer Start -->
+                        <tfoot>
+                        <tr class="cart-subtotal">
+                            <th class="text-start ps-0">Cart Subtotal</th>
+                            <td class="text-end pe-0"><span class="amount">${{ open_order.total }}</span></td>
+                        </tr>
+                        <tr class="cart-subtotal">
+                            <th class="text-start ps-0">Discount</th>
+                            {% if open_order.discount != None %}
+                                <td class="text-end pe-0"><span class="amount">${{ open_order.discount }}</span></td>
+                            {% else %}
+                                <td class="text-end pe-0"><span class="amount">$0</span></td>
+                            {% endif %}
+                        </tr>
+                        <tr class="order-total">
+                            <th class="text-start ps-0">Order Total</th>
+                            {% if open_order.finally_total != None %}
+                                <td class="text-end pe-0"><strong><span
+                                        class="amount">${{ open_order.finally_total }}</span></strong></td>
+                            {% else %}
+                                <td class="text-end pe-0"><strong><span
+                                        class="amount">${{ open_order.total }}</span></strong></td>
+                            {% endif %}
+
+                        </tr>
+                        </tfoot>
+                        <!-- Table Footer End -->
+                    </table>
+                </div>
+                <!-- Your Order Table End -->
+
+                <!-- Payment Accordion Order Button Start -->
+                <div class="payment-accordion-order-button">
+                    <div class="payment-accordion"></div>
+                    <div class="order-button-payment">
+                        <a href="{% url "request" %}"></a><button class="btn btn-dark btn-hover-primary rounded-0 w-100">Place Order</button>
+                    </div>
+                </div>
+                <!-- Payment Accordion Order Button End -->
+            </div>
+            <!-- Your Order Area End -->
+        </div>
+    </div>
+    <!-- Checkout Section End -->
+
+{% endblock %}

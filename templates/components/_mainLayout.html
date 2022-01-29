@@ -1,0 +1,22 @@
+{% load static %}
+{% load render_partial %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Destry - Fashion eCommerce HTML Template</title>
+    <title>shop</title>
+    {% include "components/_headerReferences.html" %}
+</head>
+
+<body>
+
+
+{% render_partial "e_shop.views.header_partial_view" %}
+{% block content %}{% endblock %}
+{% include "components/_footer.html" %}
+{% include "components/_footerReferences.html" %}
+</body>
+</html>

@@ -1,0 +1,136 @@
+{% extends "components/_mainLayout.html" %}
+{% load static %}
+
+{% block content %}
+
+    <style>
+        .about-feature-bg {
+            background-image: url({{ details.bg_cover.url }});
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center center;
+            position: relative;
+        }
+
+        .about-feature-bg::before {
+            content: "";
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            background: #fff;
+            opacity: .9;
+            top: 0;
+            left: 0;
+        }
+    </style>
+    <!-- Breadcrumb Section Start -->
+    <div class="section">
+
+        <!-- Breadcrumb Area Start -->
+        <div class="breadcrumb-area bg-light">
+            <div class="container-fluid">
+                <div class="breadcrumb-content text-center">
+                    <h1 class="title">About Us</h1>
+                    <ul>
+                        <li>
+                            <a href="{% url "home" %}">Home </a>
+                        </li>
+                        <li class="active"> About Us</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Breadcrumb Area End -->
+
+    </div>
+    <!-- Breadcrumb Section End -->
+
+    <!-- About Section Start -->
+    <div class="section section-margin overflow-hidden">
+        <div class="container">
+            <div class="row mb-n6">
+                <div class="col-lg-6 align-self-center mb-6" data-aos="fade-right" data-aos-delay="600">
+                    <div class="about_content">
+                        <h2 class="title">{{ details.title }}</h2>
+                        <p>{{ details.description | safe }}</p>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-6" data-aos="fade-left" data-aos-delay="600">
+                    <div class="about_thumb">
+                        <img class="fit-image" src="{{ details.cover.url }}" alt="{{ details.title }}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About Section End -->
+
+    <!-- Feature Section Start -->
+    <div class="section about-feature-bg section-padding">
+        <div class="container">
+            <div class="row mb-n5">
+                <!-- Feature Start -->
+                <div class="col-lg-3 col-md-6 mb-5" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature flex-column text-center">
+                        <div class="icon w-100 mb-4">
+                            <img src="{% static "assets/images/icons/feature-icon-2.png" %}" alt="Feature Icon">
+                        </div>
+                        <div class="content ps-0 w-100">
+                            <h5 class="title mb-2">Free Shipping</h5>
+                            <p>Erat metus sodales eget dolor consectetuer, porta ut purus at et alias, nulla ornare
+                                velit</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Feature End -->
+
+                <!-- Feature Start -->
+                <div class="col-lg-3 col-md-6 mb-5" data-aos="fade-up" data-aos-delay="400">
+                    <div class="feature flex-column text-center">
+                        <div class="icon w-100 mb-4">
+                            <img src="{% static "assets/images/icons/feature-icon-3.png" %}" alt="Feature Icon">
+                        </div>
+                        <div class="content ps-0 w-100">
+                            <h5 class="title mb-2">Support 24/7</h5>
+                            <p>Erat metus sodales eget dolor consectetuer, porta ut purus at et alias, nulla ornare
+                                velit</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Feature End -->
+                <!-- Feature Start -->
+                <div class="col-lg-3 col-md-6 mb-5" data-aos="fade-up" data-aos-delay="500">
+                    <div class="feature flex-column text-center">
+                        <div class="icon w-100 mb-4">
+                            <img src="{% static "assets/images/icons/feature-icon-4.png" %}" alt="Feature Icon">
+                        </div>
+                        <div class="content ps-0 w-100">
+                            <h5 class="title mb-2">Money Return</h5>
+                            <p>Erat metus sodales eget dolor consectetuer, porta ut purus at et alias, nulla ornare
+                                velit</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Feature End -->
+
+                <!-- Feature Start -->
+                <div class="col-lg-3 col-md-6 mb-5" data-aos="fade-up" data-aos-delay="600">
+                    <div class="feature flex-column text-center">
+                        <div class="icon w-100 mb-4">
+                            <img src="{% static "assets/images/icons/feature-icon-1.png" %}" alt="Feature Icon">
+                        </div>
+                        <div class="content ps-0 w-100">
+                            <h5 class="title mb-2">Order Discount</h5>
+                            <p>Erat metus sodales eget dolor consectetuer, porta ut purus at et alias, nulla ornare
+                                velit</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Feature End -->
+            </div>
+        </div>
+    </div>
+    <!-- Feature Section End -->
+
+
+{% endblock %}

@@ -1,0 +1,607 @@
+{% extends "components/_mainLayout.html" %}
+{% load static %}
+
+{% block content %}
+    <style>
+        .profile_image {
+            width: 80px;
+            height: 80px;
+        }
+
+        #id_quantity {
+            width: 6vw;
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            /* display: none; <- Crashes Chrome on hover */
+            -webkit-appearance: none;
+            margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+            text-align: center;
+        }
+
+        input[type=number] {
+            -moz-appearance: textfield; /* Firefox */
+            text-align: center;
+        }
+    </style>
+    <!-- Breadcrumb Section Start -->
+    <div class="section">
+        <!-- Breadcrumb Area Start -->
+        <div class="breadcrumb-area bg-light">
+            <div class="container-fluid">
+                <div class="breadcrumb-content text-center">
+                    <h1 class="title">Single Product</h1>
+                    <ul>
+                        <li>
+                            <a href="{% url "home" %}">Home </a>
+                        </li>
+                        <li class="active"> Single Product</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb Area End -->
+    <!-- Single Product Section Start -->
+    <div class="section section-margin">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-5 offset-lg-0 col-md-8 offset-md-2 col-custom">
+
+                    <!-- Product Details Image Start -->
+                    <div class="product-details-img">
+
+                        <!-- Single Product Image Start -->
+                        <div class="single-product-img swiper-container gallery-top">
+                            <div class="swiper-wrapper popup-gallery">
+                                {% if product.image %}
+                                    <a class="swiper-slide w-100"
+                                   href="{{ product.image.url }}">
+                                    <img class="w-100" src="{{ product.image.url }}"
+                                         alt="Product">
+                                   {% else %}
+                                    <a class="swiper-slide w-100"
+                                   href="/">
+                                    <img class="w-100" src="{% static "assets/images/products/large-size/1.jpg"%}"
+                                         alt="Product">
+                                    {% endif %}
+                                </a>
+                                {% for gallery in product.gallery_set.all %}
+                                    <a class="swiper-slide w-100"
+                                       href="{{ gallery.image.url }}">
+                                        <img class="w-100" src="{{ gallery.image.url }}"
+                                             alt="Product">
+                                    </a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <!-- Single Product Image End -->
+
+                        <!-- Single Product Thumb Start -->
+                        <div class="single-product-thumb swiper-container gallery-thumbs">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    {% if product.image %}
+                                    <img src="{{ product.image.url }}"
+                                         alt="Product">
+                                    {% else %}
+                                        <img src="{% static "assets/images/products/large-size/1.jpg" %}"
+                                         alt="Default Image">
+                                    {% endif %}
+                                </div>
+                            {% if product.gallery_set.all %}
+                                {% for image in product.gallery_set.all %}
+                                    <div class="swiper-slide">
+                                        <img src="{{ image.image.url }}"
+                                             alt="{{ product.name }}">
+                                    </div>
+                                {% endfor %}
+                                {% else %}
+                                <div class="swiper-slide">
+                                        <img src="{% static "assets/images/products/small-product/2.jpg" %}"
+                                             alt="Default Image">
+                                    </div>
+                            {% endif %}
+
+
+                            </div>
+
+                            <!-- Next Previous Button Start -->
+                            <div class="swiper-button-horizental-next  swiper-button-next"><i
+                                    class="pe-7s-angle-right"></i></div>
+                            <div class="swiper-button-horizental-prev swiper-button-prev"><i
+                                    class="pe-7s-angle-left"></i></div>
+                            <!-- Next Previous Button End -->
+
+                        </div>
+                        <!-- Single Product Thumb End -->
+
+                    </div>
+                    <!-- Product Details Image End -->
+
+                </div>
+                <div class="col-lg-7 col-custom">
+
+                    <!-- Product Summery Start -->
+                    <div class="product-summery position-relative">
+
+                        <!-- Product Head Start -->
+                        <div class="product-head mb-3">
+                            <h2 class="product-title">{{ product.name }}</h2>
+                        </div>
+                        <!-- Product Head End -->
+
+                        <!-- Price Box Start -->
+                        <div class="price-box mb-2">
+                            <span class="regular-price">${{ product.price }}</span>
+                        </div>
+                        <!-- Price Box End -->
+
+                        <!-- SKU Start -->
+                        <div class="sku mb-3">
+                            <span>PID: {{ product.id }}</span>
+                        </div>
+                        <!-- SKU End -->
+
+                        <!-- Description Start -->
+                        <p class="desc-content mb-5">I must explain to you how all this mistaken idea of denouncing
+                            pleasure and praising pain was born and I will give you a complete account of the system,
+                            and expound the actual teachings of the great explorer of the truth, the master-builder of
+                            human happiness.</p>
+                        <!-- Description End -->
+
+
+                        <!-- Quantity Start -->
+                        <div>
+                            <div>
+                                <form action="{% url "add-to-cart" %}" method="post">
+                                    {% csrf_token %}
+                                    <!-- Product Meta Start -->
+                                    <div class="product-meta mb-3">
+                                        <!-- Product Size Start -->
+                                        <div class="product-size">
+                                            <span>Size :</span>
+                                            <label>
+                                                <select name="size_form" class="form-select form-select-sm ms-2">
+                                                    {% for size in product.size.all %}
+                                                        <option>{{ size }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </label>
+
+                                        </div>
+                                        <!-- Product Size End -->
+                                    </div>
+                                    <!-- Product Meta End -->
+                                    {{ order_form.product_id }}
+                                    {{ order_form.quantity }}
+                                    <div class="cart-wishlist-btn mt-4 mb-4">
+                                        <div class="add-to_cart">
+                                            <button class="btn btn-outline-dark btn-hover-primary" type="submit">
+                                                Add to Cart
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <form action="{% url "add_wishlist" %}" method="post">
+                                    {% csrf_token %}
+                                    <input name="next" type="hidden" value="{{ request.path }}"/>
+                                    {{ wishlist_form.product_id }}
+                                    <div class="add-to-wishlist">
+                                        <button type="submit" class="btn btn-outline-dark btn-hover-primary">Add
+                                            to
+                                            Wishlist
+                                        </button>
+                                    </div>
+                                    {% if messages %}
+                                        <ul class="alert-danger text-center p-3 mt-3 rounded-3">
+                                            {% for message in messages %}
+                                                <li{% if message.tags %}
+                                                    class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif %}
+                                </form>
+                            </div>
+                        </div>
+                        <!-- Quantity End -->
+
+                        <!-- Cart & Wishlist Button Start -->
+
+                        <!-- Cart & Wishlist Button End -->
+
+                        <!-- Product Delivery Policy Start -->
+                        <ul class="product-delivery-policy border-top pt-4 mt-4 border-bottom pb-4">
+                            <li><i class="fa fa-check-square"></i> <span>Security Policy (Edit With Customer Reassurance Module)</span>
+                            </li>
+                            <li>
+                                <i class="fa fa-truck"></i><span>Delivery Policy (Edit With Customer Reassurance Module)</span>
+                            </li>
+                            <li>
+                                <i class="fa fa-refresh"></i><span>Return Policy (Edit With Customer Reassurance Module)</span>
+                            </li>
+                        </ul>
+                        <!-- Product Delivery Policy End -->
+
+                    </div>
+                    <!-- Product Summery End -->
+
+                </div>
+            </div>
+
+            <div class="row section-margin">
+                <!-- Single Product Tab Start -->
+                <div class="col-lg-12 col-custom single-product-tab">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active text-uppercase" id="home-tab" data-bs-toggle="tab"
+                               href="#connect-1" role="tab" aria-selected="true">Description</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-uppercase" id="profile-tab" data-bs-toggle="tab" href="#connect-2"
+                               role="tab" aria-selected="false">Reviews</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content mb-text" id="myTabContent">
+                        <div class="tab-pane fade show active" id="connect-1" role="tabpanel"
+                             aria-labelledby="home-tab">
+                            <div class="desc-content border p-3">
+                                <p class="mb-3">{{ product.description }}</p>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="connect-2" role="tabpanel" aria-labelledby="profile-tab">
+                            {% for comment in comments %}
+                                <!-- Start Single Content -->
+                                {#                                <div class="product_tab_content  border p-3">#}
+                                <!-- Start Single Review -->
+                                <div class="single-review d-flex mb-4">
+
+                                    <!-- Review Thumb Start -->
+                                    <div class="review_thumb">
+                                        <img class="profile_image" alt="review images"
+                                             src="{{ comment.user.profile_image.url }}">
+                                    </div>
+                                    <!-- Review Thumb End -->
+
+                                    <!-- Review Details Start -->
+                                    <div class="review_details">
+                                        <div class="review_info mb-2">
+                                            <!-- Review Title & Date Start -->
+                                            <div class="review-title-date d-flex">
+                                                <h5 class="title me-3">{{ comment.user.username }}</h5>
+                                                <span> {{ comment.time | timesince }}</span>
+                                            </div>
+                                            <!-- Review Title & Date End -->
+
+                                        </div>
+                                        <p>{{ comment.text }}</p>
+                                    </div>
+                                    <!-- Review Details End -->
+
+                                </div>
+                                <!-- End Single Review -->
+                                <hr class="col-md-8">
+                            {% endfor %}
+
+                            <!-- Rating Wrap Start -->
+                            <div class="rating_wrap">
+                                <h5 class="rating-title mb-2">Add a review </h5>
+                            </div>
+                            <!-- Rating Wrap End -->
+
+                            <!-- Comments ans Replay Start -->
+                            <div class="comments-area comments-reply-area">
+                                <div class="row">
+                                    <div class="col-lg-12 col-custom">
+
+                                        {% if request.user.is_authenticated %}
+                                            <!-- Comment form Start -->
+                                            <form method="post" action="{% url "comment" %}" class="comment-form-area">
+                                                {% csrf_token %}
+                                                <div class="row comment-input">
+                                                    {{ comment_form.user_id }}
+                                                    {{ comment_form.product_id }}
+                                                    {{ comment_form.comment_text }}
+                                                </div>
+                                                <!-- Comment Submit Button Start -->
+                                                <div class="mt-2 comment-form-submit">
+                                                    <button type="submit" class="btn btn-dark btn-hover-primary">
+                                                        Submit
+                                                    </button>
+                                                </div>
+                                                <!-- Comment Submit Button End -->
+                                            </form>
+                                            <!-- Comment form End -->
+                                        {% else %}
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <div class="alert alert-danger">
+                                                        <p class="text-center">
+                                                            For Add Your Review Please
+                                                            <a href="#">Login</a>/<a href="{% url "register" %}">Register</a>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Comments ans Replay End -->
+                            {#                            </div>#}
+                            <!-- End Single Content -->
+                        </div>
+                    </div>
+                </div>
+                <!-- Single Product Tab End -->
+            </div>
+
+            <!-- Products Start -->
+            <div class="row">
+
+                <div class="col-12">
+                    <!-- Section Title Start -->
+                    <div class="section-title aos-init aos-animate" data-aos="fade-up" data-aos-delay="300">
+                        <h2 class="ms-3 title pb-3">You Might Also Like</h2>
+                        <span></span>
+                        <div class="title-border-bottom"></div>
+                    </div>
+                    <!-- Section Title End -->
+                </div>
+
+                <div class="col">
+                    <div class="product-carousel">
+
+                        <div class="swiper-container">
+                            <div class="swiper-wrapper">
+
+                                <!-- Product Start -->
+                                <div class="swiper-slide product-wrapper">
+
+                                    <!-- Single Product Start -->
+                                    <div class="product product-border-left" data-aos="fade-up" data-aos-delay="300">
+                                        <div class="thumb">
+                                            <a href="single-product.html" class="image">
+                                                <img class="first-image"
+                                                     src="{% static "assets/images/products/medium-size/1.jpg" %}"
+                                                     alt="Product"/>
+                                                <img class="second-image"
+                                                     src="{% static "assets/images/products/medium-size/5.jpg" %}"
+                                                     alt="Product"/>
+                                            </a>
+                                            <div class="actions">
+                                                <a href="#" class="action wishlist"><i class="pe-7s-like"></i></a>
+                                                <a href="#" class="action quickview" data-bs-toggle="modal"
+                                                   data-bs-target="#exampleModalCenter"><i class="pe-7s-search"></i></a>
+                                                <a href="#" class="action compare"><i class="pe-7s-shuffle"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="content">
+                                            <h4 class="sub-title"><a href="single-product.html">Studio Design</a></h4>
+                                            <h5 class="title"><a href="single-product.html">Brother Hoddies in Grey</a>
+                                            </h5>
+                                            <span class="ratings">
+                                                    <span class="rating-wrap">
+                                                        <span class="star" style="width: 100%"></span>
+                                            </span>
+                                            <span class="rating-num">(4)</span>
+                                            </span>
+                                            <span class="price">
+                                                    <span class="new">$38.50</span>
+                                            <span class="old">$42.85</span>
+                                            </span>
+                                            <button class="btn btn-sm btn-outline-dark btn-hover-primary">Add To Cart
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <!-- Single Product End -->
+
+                                </div>
+                                <!-- Product End -->
+
+                                <!-- Product Start -->
+                                <div class="swiper-slide product-wrapper">
+
+                                    <!-- Single Product Start -->
+                                    <div class="product product-border-left" data-aos="fade-up" data-aos-delay="400">
+                                        <div class="thumb">
+                                            <a href="single-product.html" class="image">
+                                                <img class="first-image"
+                                                     src="{% static "assets/images/products/medium-size/4.jpg" %}"
+                                                     alt="Product"/>
+                                                <img class="second-image"
+                                                     src="{% static "assets/images/products/medium-size/10.jpg" %}"
+                                                     alt="Product"/>
+                                            </a>
+                                            <span class="badges">
+                                                    <span class="sale">New</span>
+                                            </span>
+                                            <div class="actions">
+                                                <a href="#" class="action wishlist"><i class="pe-7s-like"></i></a>
+                                                <a href="#" class="action quickview" data-bs-toggle="modal"
+                                                   data-bs-target="#exampleModalCenter"><i class="pe-7s-search"></i></a>
+                                                <a href="#" class="action compare"><i class="pe-7s-shuffle"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="content">
+                                            <h4 class="sub-title"><a href="single-product.html">Studio Design</a></h4>
+                                            <h5 class="title"><a href="single-product.html">Simple Woven Fabrics</a>
+                                            </h5>
+                                            <span class="ratings">
+                                                    <span class="rating-wrap">
+                                                        <span class="star" style="width: 67%"></span>
+                                            </span>
+                                            <span class="rating-num">(2)</span>
+                                            </span>
+                                            <span class="price">
+                                                    <span class="new">$45.50</span>
+                                            <span class="old">$48.85</span>
+                                            </span>
+                                            <button class="btn btn-sm btn-outline-dark btn-hover-primary">Add To Cart
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <!-- Single Product End -->
+
+                                </div>
+                                <!-- Product End -->
+
+                                <!-- Product Start -->
+                                <div class="swiper-slide product-wrapper">
+
+                                    <!-- Single Product Start -->
+                                    <div class="product product-border-left" data-aos="fade-up" data-aos-delay="500">
+                                        <div class="thumb">
+                                            <a href="single-product.html" class="image">
+                                                <img class="first-image"
+                                                     src="{% static "assets/images/products/medium-size/7.jpg" %}"
+                                                     alt="Product"/>
+                                                <img class="second-image"
+                                                     src="{% static "assets/images/products/medium-size/9.jpg" %}"
+                                                     alt="Product"/>
+                                            </a>
+                                            <div class="actions">
+                                                <a href="#" class="action wishlist"><i class="pe-7s-like"></i></a>
+                                                <a href="#" class="action quickview" data-bs-toggle="modal"
+                                                   data-bs-target="#exampleModalCenter"><i class="pe-7s-search"></i></a>
+                                                <a href="#" class="action compare"><i class="pe-7s-shuffle"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="content">
+                                            <h4 class="sub-title"><a href="single-product.html">Lather Design</a></h4>
+                                            <h5 class="title"><a href="single-product.html">Basic Lather Sneaker</a>
+                                            </h5>
+                                            <span class="ratings">
+                                                    <span class="rating-wrap">
+                                                        <span class="star" style="width: 100%"></span>
+                                            </span>
+                                            <span class="rating-num">(12)</span>
+                                            </span>
+                                            <span class="price">
+                                                    <span class="new">$65.00</span>
+                                            </span>
+                                            <button class="btn btn-sm btn-outline-dark btn-hover-primary">Add To Cart
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <!-- Single Product End -->
+
+                                </div>
+                                <!-- Product End -->
+
+                                <!-- Product Start -->
+                                <div class="swiper-slide product-wrapper">
+
+                                    <!-- Single Product Start -->
+                                    <div class="product product-border-left" data-aos="fade-up" data-aos-delay="600">
+                                        <div class="thumb">
+                                            <a href="single-product.html" class="image">
+                                                <img class="first-image"
+                                                     src="{% static "assets/images/products/medium-size/11.jpg" %}"
+                                                     alt="Product"/>
+                                                <img class="second-image"
+                                                     src="{% static "assets/images/products/medium-size/10.jpg" %}"
+                                                     alt="Product"/>
+                                            </a>
+                                            <div class="actions">
+                                                <a href="#" class="action wishlist"><i class="pe-7s-like"></i></a>
+                                                <a href="#" class="action quickview" data-bs-toggle="modal"
+                                                   data-bs-target="#exampleModalCenter"><i class="pe-7s-search"></i></a>
+                                                <a href="#" class="action compare"><i class="pe-7s-shuffle"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="content">
+                                            <h4 class="sub-title"><a href="single-product.html">Design Source</a></h4>
+                                            <h5 class="title"><a href="single-product.html">Handmade Shoulder Bag</a>
+                                            </h5>
+                                            <span class="ratings">
+                                                    <span class="rating-wrap">
+                                                        <span class="star" style="width: 100%"></span>
+                                            </span>
+                                            <span class="rating-num">(06)</span>
+                                            </span>
+                                            <span class="price">
+                                                    <span class="new">$96.50</span>
+                                            <span class="old">$100.00</span>
+                                            </span>
+                                            <button class="btn btn-sm btn-outline-dark btn-hover-primary">Add To Cart
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <!-- Single Product End -->
+
+                                </div>
+                                <!-- Product End -->
+
+                                <!-- Product Start -->
+                                <div class="swiper-slide product-wrapper">
+
+                                    <!-- Single Product Start -->
+                                    <div class="product product-border-left" data-aos="fade-up" data-aos-delay="700">
+                                        <div class="thumb">
+                                            <a href="single-product.html" class="image">
+                                                <img class="first-image"
+                                                     src="{% static "assets/images/products/medium-size/7.jpg" %}"
+                                                     alt="Product"/>
+                                                <img class="second-image"
+                                                     src="{% static "assets/images/products/medium-size/9.jpg" %}"
+                                                     alt="Product"/>
+                                            </a>
+                                            <div class="actions">
+                                                <a href="#" class="action wishlist"><i class="pe-7s-like"></i></a>
+                                                <a href="#" class="action quickview" data-bs-toggle="modal"
+                                                   data-bs-target="#exampleModalCenter"><i class="pe-7s-search"></i></a>
+                                                <a href="#" class="action compare"><i class="pe-7s-shuffle"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="content">
+                                            <h4 class="sub-title"><a href="single-product.html">Lather Design</a></h4>
+                                            <h5 class="title"><a href="single-product.html">Basic Lather Sneaker</a>
+                                            </h5>
+                                            <span class="ratings">
+                                                    <span class="rating-wrap">
+                                                        <span class="star" style="width: 100%"></span>
+                                            </span>
+                                            <span class="rating-num">(12)</span>
+                                            </span>
+                                            <span class="price">
+                                                    <span class="new">$65.00</span>
+                                            </span>
+                                            <button class="btn btn-sm btn-outline-dark btn-hover-primary">Add To Cart
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <!-- Single Product End -->
+
+                                </div>
+                                <!-- Product End -->
+
+                            </div>
+
+                            <!-- Swiper Pagination Start -->
+                            <div class="swiper-pagination d-md-none"></div>
+                            <!-- Swiper Pagination End -->
+
+                            <!-- Next Previous Button Start -->
+                            <div class="swiper-product-button-next swiper-button-next swiper-button-white d-md-flex d-none">
+                                <i class="pe-7s-angle-right"></i></div>
+                            <div class="swiper-product-button-prev swiper-button-prev swiper-button-white d-md-flex d-none">
+                                <i class="pe-7s-angle-left"></i></div>
+                            <!-- Next Previous Button End -->
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <!-- Products End -->
+
+        </div>
+    </div>
+    <!-- Single Product Section End -->
+
+{% endblock %}

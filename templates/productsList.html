@@ -1,0 +1,180 @@
+{% extends "components/_mainLayout.html" %}
+{% load static %}
+{% block content %}
+    <!-- Breadcrumb Section Start -->
+    <div class="section">
+        <!-- Breadcrumb Area Start -->
+        <div class="breadcrumb-area bg-light">
+            <div class="container-fluid">
+                <div class="breadcrumb-content text-center">
+                    <h1 class="title">Shop Grid</h1>
+                    <ul>
+                        <li>
+                            <a href="index.html">Home </a>
+                        </li>
+                        <li class="active"> Products</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Breadcrumb Area End -->
+
+    </div>
+    <!-- Breadcrumb Section End -->
+    <div class="section section-margin">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+
+                    <!--shop toolbar start-->
+                    <div class="shop_toolbar_wrapper flex-column flex-md-row mb-10">
+
+                        <div class="shop-top-bar-left mb-md-0 mb-2"></div>
+
+
+                        <!-- Shopt Top Bar Right Start -->
+                        <div class="shop-top-bar-right">
+                            <div class="shop-short-by mr-4">
+                                <select class="nice-select" aria-label=".form-select-sm example">
+                                    <option selected>Show 24</option>
+                                    <option value="1">Show 24</option>
+                                    <option value="2">Show 12</option>
+                                    <option value="3">Show 15</option>
+                                    <option value="3">Show 30</option>
+                                </select>
+                            </div>
+
+                            <div class="shop-short-by mr-4">
+                                <select class="nice-select" aria-label=".form-select-sm example">
+                                    <option selected>Short by Default</option>
+                                    <option value="1">Short by Popularity</option>
+                                    <option value="2">Short by Rated</option>
+                                    <option value="3">Short by Latest</option>
+                                    <option value="3">Short by Price</option>
+                                    <option value="3">Short by Price</option>
+                                </select>
+                            </div>
+
+                            <div class="shop_toolbar_btn">
+                                <button data-role="grid_4" type="button" class="active btn-grid-4" title="Grid"><i
+                                        class="fa fa-th"></i></button>
+                                <button data-role="grid_list" type="button" class="btn-list" title="List"><i
+                                        class="fa fa-th-list"></i></button>
+                            </div>
+                        </div>
+                        <!-- Shopt Top Bar Right End -->
+
+                    </div>
+                    <!--shop toolbar end-->
+
+                    <!-- Shop Wrapper Start -->
+                    <div class="row shop_wrapper grid_4">
+
+                        <!-- Single Product Start -->
+                        {% for product in object_list %}
+                            <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 product" data-aos="fade-up"
+                                 data-aos-delay="300">
+                                <div class="product-inner">
+                                    <div class="thumb">
+                                        <a href="{{ product.get_absolute_url }}" class="image">
+                                            {% if product.image %}
+                                                <img class="first-image"
+                                                     src="{{ product.image.url }}"
+                                                     alt="{{ product.name }}"/>
+                                            {% else %}
+                                                <img class="first-image"
+                                                     src="{% static "assets/images/products/medium-size/10.jpg" %}"
+                                                     alt="None Image"/>
+                                            {% endif %}
+                                            {% if product.gallery_set.all %}
+                                                <img class="second-image"
+                                                        {% for image in product.gallery_set.all %}
+                                                     src="{{ image.image.url }}"
+                                                        {% endfor %}
+                                                     alt="{{ product.name }}"/>
+                                            {% else %}
+                                                <img class="second-image"
+                                                     src="{% static "assets/images/products/medium-size/10.jpg" %}"
+                                                     alt="None Product Image"/>
+                                            {% endif %}
+                                        </a>
+                                    </div>
+                                    <div class="content">
+                                        <h4 class="sub-title"><a
+                                                href="{% url "sub_categories" category=product.category.url sub_category=product.sub_category.url %}">{{ product.sub_category }}</a>
+                                        </h4>
+                                        <h5 class="title"><a
+                                                href="{{ product.get_absolute_url }}">{{ product.name }}</a></h5>
+
+                                        <p>{{ product.description | truncatewords:40 }}</p>
+                                        <span class="price">
+                                            <span class="new">${{ product.price }}</span>
+                                    </span>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        <!-- Single Product End -->
+
+                    </div>
+                    <!-- Shop Wrapper End -->
+
+                    <!--shop toolbar start-->
+                    <div class="shop_toolbar_wrapper mt-10">
+
+                        <!-- Shop Top Bar Left start -->
+                        <div class="shop-top-bar-left">
+                            <div class="shop-short-by mr-4">
+                                <select class="nice-select rounded-0" aria-label=".form-select-sm example">
+                                    <option selected>Show 12 Per Page</option>
+                                    <option value="1">Show 12 Per Page</option>
+                                    <option value="2">Show 24 Per Page</option>
+                                    <option value="3">Show 15 Per Page</option>
+                                    <option value="3">Show 30 Per Page</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Shop Top Bar Left end -->
+
+                        <!-- Shopt Top Bar Right Start -->
+                        <div class="shop-top-bar-right">
+                            <nav>
+                                <ul class="pagination">
+                                    {% if page_obj.has_previous %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}"
+                                               aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                    {% for page in paginator.page_range %}
+                                        {% if page == page_obj.number %}
+                                            <li class="page-item"><a class="page-link active"
+                                                                     href="?page={{ page }}">{{ page }}</a></li>
+                                        {% else %}
+                                            <li class="page-item"><a class="page-link"
+                                                                     href="?page={{ page }}">{{ page }}</a></li>
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% if page_obj.has_next %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{ page_obj.next_page_number }}"
+                                               aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </nav>
+                        </div>
+                        <!-- Shopt Top Bar Right End -->
+
+                    </div>
+                    <!--shop toolbar end-->
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

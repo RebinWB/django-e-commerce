@@ -1,0 +1,388 @@
+{% extends "components/_mainLayout.html" %}
+{% load static %}
+
+{% block content %}
+    <!-- Hero/Intro Slider Start -->
+    <div class="section">
+        <div class="hero-slider">
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+
+                    <!-- Hero Slider Item Start -->
+                    {% if slider %}
+                        {% for slide in slider %}
+                            <div class="hero-slide-item swiper-slide">
+                                <!-- Hero Slider Bg Image Start -->
+                                <div class="hero-slide-bg">
+                                    <img src="{{ slide.image.url }}" alt="{{ slide.title }}"/>
+                                </div>
+                                <!-- Hero Slider Bg image End -->
+
+                                <!-- Hero Slider Content Start -->
+                                <div class="container">
+                                    <div class="hero-slide-content">
+                                        <h2 class="title">
+                                            {{ slide.title }}
+                                        </h2>
+                                        <a href="{{ slide.url }}" class="btn btn-lg btn-primary btn-hover-dark">Shop
+                                            Now</a>
+                                    </div>
+                                </div>
+                                <!-- Hero Slider Content End -->
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="hero-slide-item swiper-slide">
+                            <!-- Hero Slider Bg Image Start -->
+                            <div class="hero-slide-bg">
+                                <img src="{% static "assets/images/slider/slide-1.jpg" %}" alt="None Slider"/>
+                            </div>
+                            <!-- Hero Slider Bg image End -->
+
+                            <!-- Hero Slider Content Start -->
+                            <div class="container">
+                                <div class="hero-slide-content">
+                                    <h2 class="title">
+                                        Sample Text
+                                    </h2>
+                                    <a href="{{ slide.url }}" class="btn btn-lg btn-primary btn-hover-dark">Shop Now</a>
+                                </div>
+                            </div>
+                            <!-- Hero Slider Content End -->
+                        </div>
+                    {% endif %}
+                    <!-- Hero Slider Item End -->
+
+
+                </div>
+
+                <!-- Swiper Pagination Start -->
+                <div class="swiper-pagination d-md-none"></div>
+                <!-- Swiper Pagination End -->
+
+                <!-- Swiper Navigation Start -->
+                <div class="home-slider-prev swiper-button-prev main-slider-nav d-md-flex d-none"><i
+                        class="pe-7s-angle-left"></i></div>
+                <div class="home-slider-next swiper-button-next main-slider-nav d-md-flex d-none"><i
+                        class="pe-7s-angle-right"></i></div>
+                <!-- Swiper Navigation End -->
+
+            </div>
+        </div>
+    </div>
+    <!-- Hero/Intro Slider End -->
+
+    <!-- Banner Section Start -->
+    <div class="section section-margin">
+        <div class="container">
+
+            <!-- Banners Start -->
+            <div class="row mb-n6">
+
+                <!-- Banner Start -->
+                {% if mini_banner %}
+                    {% for banner in mini_banner %}
+                        <div class="col-lg-4 col-md-6 col-12 mb-6">
+                            <div class="banner" data-aos="fade-up" data-aos-delay="300">
+                                <div class="banner-image">
+                                    <a href=""><img src="{{ banner.image.url }}" alt="{{ banner.title }}"></a>
+                                </div>
+                                <div class="info">
+                                    <div class="small-banner-content">
+                                        <h3 class="title">{{ banner.title }}</h3>
+                                        <a href="{{ banner.url }}" class="btn btn-dark btn-sm">Shop Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="col-lg-4 col-md-6 col-12 mb-6">
+                        <div class="banner" data-aos="fade-up" data-aos-delay="300">
+                            <div class="banner-image">
+                                <a href=""><img src="{% static "assets/images/banner/banner-2.jpg" %}"
+                                                alt="None Banner"></a>
+                            </div>
+                            <div class="info">
+                                <div class="small-banner-content">
+                                    <h3 class="title">Sample Text</h3>
+                                    <a href="/" class="btn btn-dark btn-sm">Shop Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                <!-- Banner End -->
+
+
+            </div>
+            <!-- Banners End -->
+        </div>
+    </div>
+    <!-- Banner Section End -->
+
+    <!-- Feature Section Start -->
+    <div class="section">
+        <div class="container">
+            <div class="feature-wrap">
+                <div class="row row-cols-lg-4 row-cols-xl-auto row-cols-sm-2 row-cols-1 justify-content-between mb-n5">
+                    <!-- Feature Start -->
+                    <div class="col mb-5" data-aos="fade-up" data-aos-delay="300">
+                        <div class="feature">
+                            <div class="icon text-primary align-self-center">
+                                <img src="{% static "assets/images/icons/feature-icon-2.png" %}" alt="Feature Icon">
+                            </div>
+                            <div class="content">
+                                <h5 class="title">Free Shipping</h5>
+                                <p>Free shipping on all order</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Feature End -->
+
+                    <!-- Feature Start -->
+                    <div class="col mb-5" data-aos="fade-up" data-aos-delay="500">
+                        <div class="feature">
+                            <div class="icon text-primary align-self-center">
+                                <img src="{% static "assets/images/icons/feature-icon-3.png" %}" alt="Feature Icon">
+                            </div>
+                            <div class="content">
+                                <h5 class="title">Support 24/7</h5>
+                                <p>Support 24 hours a day</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Feature End -->
+                    <!-- Feature Start -->
+                    <div class="col mb-5" data-aos="fade-up" data-aos-delay="700">
+                        <div class="feature">
+                            <div class="icon text-primary align-self-center">
+                                <img src="{% static "assets/images/icons/feature-icon-4.png" %}" alt="Feature Icon">
+                            </div>
+                            <div class="content">
+                                <h5 class="title">Money Return</h5>
+                                <p>Back guarantee under 5 days</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Feature End -->
+
+                    <!-- Feature Start -->
+                    <div class="col mb-5" data-aos="fade-up" data-aos-delay="900">
+                        <div class="feature">
+                            <div class="icon text-primary align-self-center">
+                                <img src="{% static "assets/images/icons/feature-icon-1.png" %}" alt="Feature Icon">
+                            </div>
+                            <div class="content">
+                                <h5 class="title">Order Discount</h5>
+                                <p>Onevery order over $150</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Feature End -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Feature Section End -->
+
+    <!-- Product Section Start -->
+    <div class="section section-padding mt-0">
+        <div class="container">
+            <!-- Section Title & Tab Start -->
+            <div class="row">
+                <!-- Tab Start -->
+                <div class="col-12">
+                    <ul class="product-tab-nav nav justify-content-center mb-10 title-border-bottom mt-n3">
+                        <li class="nav-item" data-aos="fade-up" data-aos-delay="400"><a class="nav-link active mt-3"
+                                                                                        data-bs-toggle="tab"
+                                                                                        href="#tab-product-all">New
+                            Arrivals</a></li>
+                        {% if recently_viewed %}
+                            <li class="nav-item" data-aos="fade-up" data-aos-delay="400"><a class="nav-link mt-3"
+                                                                                            data-bs-toggle="tab"
+                                                                                            href="#tab-product-clothings">Recently
+                                Viewed</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+                <!-- Tab End -->
+            </div>
+            <!-- Section Title & Tab End -->
+
+            <!-- Products Tab Start -->
+            <div class="row">
+                <div class="col">
+                    <div class="tab-content position-relative">
+                        <div class="tab-pane fade show active" id="tab-product-all">
+                            <div class="product-carousel">
+                                <div class="swiper-container">
+                                    <div class="swiper-wrapper mb-n10">
+
+                                        <!-- Product Start -->
+                                        {% for product in latest_products %}
+                                            <div class="swiper-slide product-wrapper">
+                                                <!-- Single Product Start -->
+                                                <div class="product product-border-left mb-10" data-aos="fade-up"
+                                                     data-aos-delay="300">
+                                                    <div class="thumb">
+                                                        <a href="{{ product.get_absolute_url }}" class="image">
+                                                            {% if product.image %}
+                                                                <img class="first-image"
+                                                                     src="{{ product.image.url }}"
+                                                                     alt="{{ product.name }}"/>
+                                                            {% else %}
+                                                                <img class="first-image"
+                                                                     src="
+                                                                        {% static "assets/images/products/medium-size/10.jpg" %}
+                                                                        "
+                                                                     alt="None Image"/>
+                                                            {% endif %}
+                                                            {% if product.gallery_set.all %}
+                                                                <img class="second-image"
+                                                                        {% for image in product.gallery_set.all %}
+                                                                     src="{{ image.image.url }}"
+                                                                        {% endfor %}
+                                                                     alt="{{ product.name }}"/>
+                                                            {% else %}
+                                                                <img class="second-image"
+                                                                     src="{% static "assets/images/products/medium-size/10.jpg" %}"
+                                                                     alt="None Product Image"/>
+                                                            {% endif %}
+                                                        </a>
+                                                    </div>
+                                                    <div class="content">
+                                                        <h4 class="sub-title"><a
+                                                                href="{% url "sub_categories" category=product.category.url sub_category=product.sub_category.url %}">{{ product.sub_category }}</a>
+                                                        </h4>
+                                                        <h5 class="title"><a
+                                                                href="{{ product.get_absolute_url }}">{{ product.name }}</a>
+                                                        </h5>
+                                                        <span class="price">
+															<span class="new">${{ product.price }}</span>
+                                                    </span>
+                                                    </div>
+                                                </div>
+                                                <!-- Single Product End -->
+                                            </div>
+                                        {% endfor %}
+                                        <!-- Product End -->
+
+
+                                    </div>
+
+                                    <!-- Swiper Pagination Start -->
+                                    <div class="swiper-pagination d-md-none"></div>
+                                    <!-- Swiper Pagination End -->
+
+                                    <!-- Next Previous Button Start -->
+                                    <div class="swiper-product-button-next swiper-button-next swiper-button-white d-md-flex d-none">
+                                        <i class="pe-7s-angle-right"></i></div>
+                                    <div class="swiper-product-button-prev swiper-button-prev swiper-button-white d-md-flex d-none">
+                                        <i class="pe-7s-angle-left"></i></div>
+                                    <!-- Next Previous Button End -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="tab-product-clothings">
+                            <div class="product-carousel">
+                                <div class="swiper-container">
+                                    <div class="swiper-wrapper mb-n10">
+
+                                        <!-- Product Start -->
+                                        {% if recently_viewed %}
+                                            {% for product in recently_viewed %}
+                                                <div class="swiper-slide product-wrapper">
+                                                    <!-- Single Product Start -->
+                                                    <div class="product product-border-left mb-10" data-aos="fade-up"
+                                                         data-aos-delay="300">
+                                                        <div class="thumb">
+                                                            <a href="{{ product.get_absolute_url }}" class="image">
+                                                                {% if product.image %}
+                                                                    <img class="first-image"
+                                                                         src="{{ product.image.url }}"
+                                                                         alt="{{ product.name }}"/>
+                                                                {% else %}
+                                                                    <img class="first-image"
+                                                                         src="
+                                                                        {% static "assets/images/products/medium-size/10.jpg" %}
+                                                                        "
+                                                                         alt="None Image"/>
+                                                                {% endif %}
+                                                                {% if product.gallery_set.all %}
+                                                                    <img class="second-image"
+                                                                            {% for image in product.gallery_set.all %}
+                                                                         src="{{ image.image.url }}"
+                                                                            {% endfor %}
+                                                                         alt="{{ product.name }}"/>
+                                                                {% else %}
+                                                                    <img class="second-image"
+                                                                         src="{% static "assets/images/products/medium-size/10.jpg" %}"
+                                                                         alt="None Product Image"/>
+                                                                {% endif %}
+                                                            </a>
+                                                        </div>
+                                                        <div class="content">
+                                                            <h4 class="sub-title"><a
+                                                                    href="{% url "sub_categories" category=product.category.url sub_category=product.sub_category.url %}">{{ product.sub_category }}</a>
+                                                            </h4>
+                                                            <h5 class="title"><a
+                                                                    href="{{ product.get_absolute_url }}">{{ product.name }}</a>
+                                                            </h5>
+                                                            <span class="price">
+															<span class="new">${{ product.price }}</span>
+                                                    </span>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Single Product End -->
+                                                </div>
+                                            {% endfor %}
+                                        {% endif %}
+                                        <!-- Product End -->
+
+                                    </div>
+
+                                    <!-- Swiper Pagination Start -->
+                                    <div class="swiper-pagination d-md-none"></div>
+                                    <!-- Swiper Pagination End -->
+
+                                    <!-- Next Previous Button Start -->
+                                    <div class="swiper-product-button-next swiper-button-next swiper-button-white d-md-flex d-none">
+                                        <i class="pe-7s-angle-right"></i></div>
+                                    <div class="swiper-product-button-prev swiper-button-prev swiper-button-white d-md-flex d-none">
+                                        <i class="pe-7s-angle-left"></i></div>
+                                    <!-- Next Previous Button End -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Products Tab End -->
+        </div>
+    </div>
+    <!-- Product Section End -->
+{% if large_banner %}
+    {% for banner in large_banner %}
+        <!-- Banner Fullwidth Start -->
+        <div class="section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12" data-aos="fade-up" data-aos-delay="300">
+                        <div class="banner">
+                            <div class="banner-image">
+
+                                    <a href="{{ banner.url }}"><img src="{{ banner.image.url }}"
+                                                                    alt="{{ banner.title }}"></a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Banner Fullwidth End -->
+    {% endfor %}
+{% endif %}
+
+{% endblock %}

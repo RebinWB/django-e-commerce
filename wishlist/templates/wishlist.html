@@ -1,0 +1,88 @@
+{% extends "components/_mainLayout.html" %}
+{% load static %}
+{% block content %}
+
+    <!-- Breadcrumb Section Start -->
+    <div class="section">
+
+        <!-- Breadcrumb Area Start -->
+        <div class="breadcrumb-area bg-light">
+            <div class="container-fluid">
+                <div class="breadcrumb-content text-center">
+                    <h1 class="title">Wishlist</h1>
+                    <ul>
+                        <li>
+                            <a href="index.html">Home </a>
+                        </li>
+                        <li class="active"> Wishlist</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Breadcrumb Area End -->
+
+    </div>
+    <!-- Breadcrumb Section End -->
+
+    <!-- Wishlist Section Start -->
+
+    <div class="section section-margin">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="wishlist-table table-responsive">
+                        {% if object_list != None and object_list|length > 0 %}
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th class="pro-thumbnail">Image</th>
+                                    <th class="pro-title">Product</th>
+                                    <th class="pro-price">Price</th>
+                                    <th class="pro-cart">Add to Cart</th>
+                                    <th class="pro-remove">Remove</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for item in object_list %}
+                                    <tr>
+                                        {% if item.product.image %}
+                                        <td class="pro-thumbnail"><a href="{{ item.product.get_absolute_url }}"><img
+                                                class="img-fluid"
+                                                src="{{ item.product.image.url }}"
+                                                alt="{{ item.product.name }}" style="width: 100px; height: 100px;"/></a></td>
+                                        {% else %}
+                                        <td class="pro-thumbnail"><a href="{{ item.product.get_absolute_url }}"><img
+                                                class="img-fluid"
+                                                src="{% static "assets/images/products/small-product/1.jpg" %}"
+                                                alt="Product" style="width: 100px; height: 100px;"/></a></td>
+                                        {% endif %}
+                                        <td class="pro-title"><a
+                                                href="{{ item.product.get_absolute_url }}">{{ item.product.name }}</a>
+                                        </td>
+                                        <td class="pro-price"><span>{{ item.product.price }}</span></td>
+                                        <td class="pro-cart"><a href="{{ item.product.get_absolute_url }}"
+                                                                class="btn btn-dark btn-hover-primary rounded-0">Add to
+                                            Cart</a></td>
+                                        <td class="pro-remove"><a href="{% url "remove_wishlist" pk=item.id %}"><i
+                                                class="pe-7s-trash"></i></a></td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        {% else %}
+                            <div class="container justify-content-center">
+                                <div class="row">
+                                    <div class="alert-warning text-center p-3 mb-3 rounded-3">
+                                        Your Wishlist is Empty
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

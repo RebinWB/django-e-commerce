@@ -1,0 +1,183 @@
+{% extends "components/_mainLayout.html" %}
+{% block content %}
+
+    <style>
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            /* display: none; <- Crashes Chrome on hover */
+            -webkit-appearance: none;
+            margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+        }
+
+        input[type=number] {
+            -moz-appearance: textfield; /* Firefox */
+        }
+    </style>
+
+    <!-- Breadcrumb Section Start -->
+    <div class="section">
+
+        <!-- Breadcrumb Area Start -->
+        <div class="breadcrumb-area bg-light">
+            <div class="container-fluid">
+                <div class="breadcrumb-content text-center">
+                    <h1 class="title"> Order Delivery Details</h1>
+                    <ul>
+                        <li>
+                            <a href="index.html">Home </a>
+                        </li>
+                        <li class="active"> Order Delivery Details</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Breadcrumb Area End -->
+
+    </div>
+    <!-- Breadcrumb Section End -->
+
+    <!-- Checkout Section Start -->
+    <div class="section section-margin">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="{% if message.tags %}alert-{{ message.tags }} text-center p-3 mt-3 mb-5 rounded-3{% endif %}">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                    <!-- Coupon Accordion Start -->
+                    <div class="coupon-accordion">
+
+                        <!-- Title Start -->
+                        <h3 class="title">Have a coupon? <span id="showcoupon">Click here to enter your code</span></h3>
+                        <!-- Title End -->
+
+                        <!-- Checkout Coupon Start -->
+                        <div id="checkout_coupon" class="coupon-checkout-content">
+                            <div class="coupon-info">
+                                <form method="post" action="{% url "coupon-code" %}">
+                                    {% csrf_token %}
+                                    <p class="checkout-coupon d-flex">
+                                        <input name="next" type="hidden" value="{{ request.path }}"/>
+                                        {{ coupon_form.code }}
+                                        <input class="btn btn-dark btn-hover-primary rounded-0" value="Apply Coupon"
+                                               type="submit">
+                                    </p>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- Checkout Coupon End -->
+
+                    </div>
+                    <!-- Coupon Accordion End -->
+                </div>
+            </div>
+            <div class="row mb-n4 d-flex justify-content-center">
+                <div class="col-lg-8 col-12 mb-4">
+
+                    <!-- Checkbox Form Start -->
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="checkbox-form">
+
+                            <!-- Checkbox Form Title Start -->
+                            <h3 class="border border-primary border-top-0 border-end-0 border-start-0 pt-3 pb-3 mb-5 text-center">
+                                Order Delivery Details</h3>
+                            <!-- Checkbox Form Title End -->
+
+                            <div class="row">
+
+                                <!-- First Name Input Start -->
+                                <div class="col-md-6">
+                                    <div class="checkout-form-list">
+                                        <label>First Name <span class="required">*</span></label>
+                                        {{ order_details_form.first_name }}
+                                    </div>
+                                </div>
+                                <!-- First Name Input End -->
+
+                                <!-- Last Name Input Start -->
+                                <div class="col-md-6">
+                                    <div class="checkout-form-list">
+                                        <label>Last Name <span class="required">*</span></label>
+                                        {{ order_details_form.last_name }}
+                                    </div>
+                                </div>
+                                <!-- Last Name Input End -->
+
+                                <!-- Email Address Input Start -->
+                                <div class="col-md-6">
+                                    <div class="checkout-form-list">
+                                        <label>Email Address <span class="required">*</span></label>
+                                        {{ order_details_form.email }}
+                                    </div>
+                                </div>
+                                <!-- Email Address Input End -->
+
+                                <!-- Phone Number Input Start -->
+                                <div class="col-md-6">
+                                    <div class="checkout-form-list">
+                                        <label>Phone <span class="required">*</span></label>
+                                        {{ order_details_form.phone }}
+                                    </div>
+                                </div>
+                                <!-- Phone Number Input End -->
+
+                                <!-- Company Name Input Start -->
+                                <div class="col-md-12">
+                                    <div class="checkout-form-list">
+                                        <label>Company Name</label>
+                                        {{ order_details_form.company_name }}
+                                    </div>
+                                </div>
+                                <!-- Company Name Input End -->
+
+                                <!-- Address Input Start -->
+                                <div class="col-md-12">
+                                    <div class="checkout-form-list">
+                                        <label>Address <span class="required">*</span></label>
+                                        {{ order_details_form.address }}
+                                    </div>
+                                </div>
+                                <!-- Address Input End -->
+
+                                <!-- Town or City Name Input Start -->
+                                <div class="col-md-12">
+                                    <div class="checkout-form-list">
+                                        <label>Province <span class="required">*</span></label>
+                                        {{ order_details_form.province }}
+                                    </div>
+                                </div>
+                                <!-- Town or City Name Input End -->
+
+                                <!-- State or Country Input Start -->
+                                <div class="col-md-6">
+                                    <div class="checkout-form-list">
+                                        <label>City <span class="required">*</span></label>
+                                        {{ order_details_form.city }}
+                                    </div>
+                                </div>
+                                <!-- State or Country Input End -->
+
+                                <!-- Postcode or Zip Input Start -->
+                                <div class="col-md-6">
+                                    <div class="checkout-form-list">
+                                        <label>Postcode <span class="required">*</span></label>
+                                        {{ order_details_form.postcode }}
+                                    </div>
+                                </div>
+                                <!-- Postcode or Zip Input End -->
+
+                            </div>
+                        </div>
+                        <button class="btn btn-primary col-12 btn-hover-dark" type="submit">Submit Information</button>
+
+                    </form>
+                    <!-- Checkbox Form End -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Checkout Section End -->
+{% endblock %}
