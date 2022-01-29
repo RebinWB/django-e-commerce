@@ -4,9 +4,6 @@ from products.models import Products, Size
 
 
 STATUS = (
-    """
-    all order instances have a status. [default = 'pending']
-    """
     ("Pending", "Pending"),
     ("Approved", "Approved"),
     ("Delivered", "Delivered"),
@@ -15,7 +12,7 @@ STATUS = (
 
 class Order(models.Model):
     """
-    Order model
+    Order model. all order instances have a status. [default = 'pending']
     """
     user                    = models.ForeignKey(Account, on_delete=models.CASCADE)
     is_paid                 = models.BooleanField(default=False)

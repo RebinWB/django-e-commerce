@@ -194,10 +194,12 @@
                 <!-- Tab Start -->
                 <div class="col-12">
                     <ul class="product-tab-nav nav justify-content-center mb-10 title-border-bottom mt-n3">
+                        {% if latest_products %}
                         <li class="nav-item" data-aos="fade-up" data-aos-delay="400"><a class="nav-link active mt-3"
                                                                                         data-bs-toggle="tab"
                                                                                         href="#tab-product-all">New
                             Arrivals</a></li>
+                        {% endif %}    
                         {% if recently_viewed %}
                             <li class="nav-item" data-aos="fade-up" data-aos-delay="400"><a class="nav-link mt-3"
                                                                                             data-bs-toggle="tab"
@@ -220,6 +222,7 @@
                                     <div class="swiper-wrapper mb-n10">
 
                                         <!-- Product Start -->
+                                        {% if latest_products %}
                                         {% for product in latest_products %}
                                             <div class="swiper-slide product-wrapper">
                                                 <!-- Single Product Start -->
@@ -266,6 +269,7 @@
                                                 <!-- Single Product End -->
                                             </div>
                                         {% endfor %}
+                                        {% endif %}
                                         <!-- Product End -->
 
 
