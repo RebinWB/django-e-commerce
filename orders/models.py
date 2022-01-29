@@ -4,6 +4,9 @@ from products.models import Products, Size
 
 
 STATUS = (
+    """
+    all order instances have a status. [default = 'pending']
+    """
     ("Pending", "Pending"),
     ("Approved", "Approved"),
     ("Delivered", "Delivered"),
@@ -11,6 +14,9 @@ STATUS = (
 
 
 class Order(models.Model):
+    """
+    Order model
+    """
     user                    = models.ForeignKey(Account, on_delete=models.CASCADE)
     is_paid                 = models.BooleanField(default=False)
     payment_date            = models.DateTimeField(blank=True, null=True)
@@ -25,6 +31,10 @@ class Order(models.Model):
 
 
 class Cart(models.Model):
+    """
+    cart model
+    each item in order is a cart instance
+    """
     order                   = models.ForeignKey(Order, on_delete=models.CASCADE)
     product                 = models.ForeignKey(Products, on_delete=models.CASCADE)
     quantity                = models.IntegerField()
@@ -36,6 +46,9 @@ class Cart(models.Model):
 
 
 class OrderDetails(models.Model):
+    """
+    order delivery details model
+    """
     user                    = models.ForeignKey(Account, on_delete=models.CASCADE)
     phone                   = models.CharField(max_length=15)
     province                = models.CharField(max_length=150)
@@ -48,6 +61,6 @@ class OrderDetails(models.Model):
         return self.user.username + " Checkout"
 
     class Meta:
-        ordering = ["-id"]
+        ordering = ["-id"]  # order by last to first
         verbose_name_plural = "Order Details"
 

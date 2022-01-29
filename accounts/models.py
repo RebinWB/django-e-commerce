@@ -7,8 +7,13 @@ from rest_framework.authtoken.models import Token
 
 
 class AccountManager(BaseUserManager):
-
+    """
+    custom user authentication model manager
+    """
     def create_user(self, email, username, password=None):
+        """
+        validate and store users information
+        """
         if not email:
             raise ValueError("Please Enter Email")
         if not username:
@@ -17,11 +22,14 @@ class AccountManager(BaseUserManager):
             email=self.normalize_email(email),
             username=username
         )
-        user.set_password(password)
+        user.set_password(password)  # use set_password for hashing password
         user.save()
         return user
 
     def create_superuser(self, email, username, password):
+        """
+        create super user 
+        """
         user = self.create_user(email=email, username=username, password=password)
         user.is_admin = True
         user.is_staff = True
@@ -40,6 +48,9 @@ def user_profile_uploader(instance, filename):
 
 # Main Account Model
 class Account(AbstractBaseUser):
+    """
+    account model is as same as built-in django user model 
+    """
     email                   = models.EmailField(max_length=120, unique=True)
     username                = models.CharField(max_length=60, unique=True)
     firstname               = models.CharField(max_length=60, blank=True)
@@ -69,7 +80,7 @@ class Account(AbstractBaseUser):
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_auth_token(sender, instance=None, created=False, **kwargs):
     """
-    create a Unique Token for each user when created = True
+    create a Unique Token for each user when --> created == True
     """
 
     if created:

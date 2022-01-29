@@ -36,18 +36,25 @@ def base_image_uploader(instance, filename):
 
 
 class ProductsManager(models.Manager):
+    """
+    custom Products model manager
+    """
+
+    # return all products in the same category
     def get_product_by_category(self, category):
         result = self.get_queryset().filter(category__url__iexact=category)
         if result:
             return result
         raise Products.DoesNotExist
 
+    # return all products in the same sub category
     def get_product_by_sub_category(self, category,  sub_category):
         result = self.get_queryset().filter(category__url__iexact=category, sub_category__url__iexact=sub_category)
         if result:
             return result
         raise Products.DoesNotExist
 
+    # search engine with  
     def search(self, query):
         lookup = (
             Q(name__icontains=query) |
@@ -60,6 +67,9 @@ class ProductsManager(models.Manager):
 
 # ---------- Category Model ----------
 class Category(models.Model):
+    """
+    products category model
+    """
     title                   = models.CharField(max_length=150)
     url                     = models.CharField(max_length=150, blank=True)
 
@@ -74,6 +84,14 @@ class Category(models.Model):
 
 
 def category_url_generator(sender, instance, created=False, *args, **kwargs):
+    """
+    generate unique slug for all Category instances url
+
+    for example:
+        Category title --> Men Category 
+        Category url --> men-category
+        Finally url --> <domain>/products/men-category/
+    """
     if not instance.url:
         instance.url = slugify(instance.title)
 
@@ -82,6 +100,9 @@ pre_save.connect(category_url_generator, sender=Category)
 
 # ---------- SubCategory Model ----------
 class SubCategory(models.Model):
+    """
+    SubCategory model. SubCategory model is the subset of Category model 
+    """
     title                   = models.CharField(max_length=150)
     url                     = models.CharField(max_length=150, blank=True)
     category_name           = models.ForeignKey(Category, on_delete=models.CASCADE)
@@ -97,6 +118,14 @@ class SubCategory(models.Model):
 
 
 def sub_category_url_generator(sender, instance, created=False, *args, **kwargs):
+    """
+    generate unique slug for all SubCategory instances url
+
+    for example:
+        SubCategory title --> Women SubCategory 
+        SubCategory url --> women-subcategory
+        Finally url --> <domain>/products/<category>/women-subcategory/
+    """
     if not instance.url:
         instance.url        = slugify(instance.title)
 
@@ -104,6 +133,9 @@ pre_save.connect(sub_category_url_generator, sender=SubCategory)
 
 # ---------- Size Model ----------
 class Size(models.Model):
+    """
+    Products Size model
+    """
     title                   = models.CharField(max_length=150)
 
     def __str__(self):
@@ -112,6 +144,9 @@ class Size(models.Model):
 
 # ---------- Products Model ----------
 class Products(models.Model):
+    """
+    Products model
+    """
     name                    = models.CharField(max_length=150)
     description             = models.TextField()
     image                   = models.ImageField(upload_to=base_image_uploader, null=True, blank=True)
@@ -122,7 +157,7 @@ class Products(models.Model):
     is_available            = models.BooleanField(default=True)
     timestamp               = models.DateTimeField(default=timezone.datetime.now)
 
-    objects = ProductsManager()
+    objects = ProductsManager()  # add Products Custom Manager functions to main Manager 
 
     def __str__(self):
         return self.name
@@ -136,6 +171,9 @@ class Products(models.Model):
 
 # ---------- Products Gallery Model ----------
 class Gallery(models.Model):
+    """
+    Gallery model. it's inline model for products model
+    """
     image                   = models.ImageField(upload_to=image_uploader)
     product                 = models.ForeignKey(Products, on_delete=models.CASCADE)
 
