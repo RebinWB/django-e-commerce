@@ -1,0 +1,54 @@
+/*====================  
+    7.11 Contact Page CSS
+====================*/
+.contact-form-wrapper {
+    & .input-item {
+        input[type="text"],
+        input[type="password"],
+        input[type="email"],
+        textarea {
+            background: $white;
+            border: 1px solid $gray-100;
+            border-radius: 0;
+            height: 42px;
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            &:focus{
+                border: 1px solid $primary;
+            }
+        }
+        textarea {
+            height: 200px;
+        }
+    }
+}
+.single-contact-info {
+    display: flex;
+    flex-wrap: wrap;
+    & .single-contact-icon {
+        margin-right: 20px;
+        & i {
+            font-size: 26px;
+            color: $dark;
+        }
+    }
+    & .single-contact-title-content {
+        & .title {
+            font-size: 18px;
+            font-family: $headings-font-family;
+            color: $dark;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        & .desc-content {
+            font-size: 14px;
+            & a {
+                color: #535353;
+                &:hover {
+                    color: $primary;
+                }
+            }
+        }
+    }
+}

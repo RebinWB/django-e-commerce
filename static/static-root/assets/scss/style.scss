@@ -1,0 +1,60 @@
+/*-----------------------------------------------------------------------------------
+
+    Template Name: Destry - Fashion eCommerce HTML Template
+    Version: 1.0
+
+-----------------------------------------------------------------------------------
+    
+    CSS INDEX
+    ===================
+	
+    01. Template default CSS
+    02. Custom Animation CSS
+    03. Header CSS
+        3.1 Header Top CSS
+        3.2 Header Bottom CSS
+        3.3 Header Mobile CSS
+        3.4 Header Cart CSS
+        3.5 Header Offcanvas CSS
+    04. Hero CSS
+    05. Footer CSS
+        5.1 Footer Top CSS
+        5.2 Footer Bottom CSS
+    06. Component CSS
+        6.1 Button CSS
+        6.2 Feature CSS
+        6.3 Banner CSS
+        6.4 Products CSS
+        6.5 Brand Logo CSS
+        6.6 Breadcrumb CSS
+        6.7 Pagination CSS
+        6.8 Sidebar CSS
+        6.9 Modal CSS
+    07. Pages CSS
+        7.1 Blog Page CSS
+        7.2 Shop Page CSS
+        7.3 Single Product Page CSS
+        7.4 My Account Page CSS
+        7.5 Login Register Page CSS
+        7.6 Wishlist Page CSS
+        7.8 Cart Page CSS
+        7.9 Compare Page CSS
+        7.10 Checkout Page CSS
+        7.11 Contact Page CSS
+        7.12 About Page CSS
+        7.13 404 Error Page CSS
+        7.14 FAQ Page CSS
+
+-----------------------------------------------------------------------------------*/
+@import "./bootstrap/functions";
+@import "variabls";
+@import "custom-variables";
+@import "./bootstrap/bootstrap";
+
+@import "common";
+@import "custom-animation";
+@import "header";
+@import "hero";
+@import "footer";
+@import "component";
+@import "pages";

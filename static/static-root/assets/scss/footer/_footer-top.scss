@@ -1,0 +1,96 @@
+/*====================  
+    5.1 Footer Top CSS
+====================*/
+.footer-top {
+    background: #f6f7f7;
+}
+.single-footer-widget {
+    & .widget-title {
+        font-size: 20px;
+        font-weight: 400;
+        font-family: $headings-font-family;
+        color: $headings-color;
+        line-height: 1;
+        margin-bottom: 30px;
+    }
+
+    & .desc-content {
+        font-size: 14px;
+        font-family: $font-family-base;
+        font-weight: 400;
+        color: #535353;
+    }
+
+    & .widget-address {
+        & li {
+            font-size: 14px;
+            margin-bottom: 5px;
+            & span {
+                font-weight: 600;
+                font-size: 16px;
+            }
+            & a{
+                font-size: 14px;
+                font-family: $font-family-base;
+                font-weight: 400;
+                color: #535353;
+
+                &:hover {
+                    color: $primary;
+                }
+            }
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    & .widget-list {
+        & li {
+            & a {
+                color: #757575;
+                font-size: 14px;
+                font-weight: 400;
+                font-family: $font-family-base;
+                display: block;
+                margin-bottom: 10px;
+
+                &:hover {
+                    color: $primary;
+                    padding-left: 5px;
+                }
+            }
+            
+            &:last-child {
+
+                & a {
+                    margin-bottom: 0px;
+                }
+            }
+        }
+    }
+
+    & .newsletter-form-wrap {
+        & .mc-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        & .email-box {
+            border: 0px;
+            border-bottom: 1px solid #ebebeb;
+            border-radius: 0px;
+            background: #f6f7f7;
+
+            &:focus {
+                box-shadow: none;
+                border-bottom: 1px solid $primary;
+            }
+        }
+
+        & .newsletter-btn {
+            width: 160px;
+        }
+    }
+}

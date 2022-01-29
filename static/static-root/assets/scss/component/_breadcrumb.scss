@@ -1,0 +1,59 @@
+/*====================  
+    6.6 Breadcrumb CSS 
+====================*/
+.breadcrumb-area {
+    padding: 60px 0;
+    @media #{$large-mobile} {
+        padding: 40px 0;
+    }
+}
+.breadcrumb-content {
+    & .title {
+        font-size: 32px;
+        font-weight: 600;
+        font-family: $headings-font-family;
+        color: $headings-color;
+        line-height: 1;
+        margin-bottom: 12px;
+        @media #{$large-mobile} {
+            font-size: 26px;
+        }
+    }
+
+    & ul {
+        & li {
+            display: inline-block;
+            margin: 0 18px 0 0;
+            text-transform: capitalize;
+            color: #1a1a1a;
+            position: relative;
+            font-size: 15px;
+            letter-spacing: .8px;
+            &:last-child {
+                margin: 0;
+            }
+            &::before {
+                position: absolute;
+                width: 13px;
+                height: 1px;
+                background-color: #6d6d6d;
+                content: "";
+                right: -18px;
+                top: 13px;
+                z-index: 1;
+                transform: rotate(106deg);
+            }
+            &:last-child::before {
+                display: none;
+            }
+            & a {
+                text-transform: capitalize;
+                color: #666;
+                font-weight: 500;
+                &:hover {
+                    color: $primary;
+                }
+            }
+        }
+    }
+}

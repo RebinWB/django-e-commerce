@@ -1,0 +1,52 @@
+/*====================  
+    6.2 Feature CSS  
+====================*/
+.feature {
+    display: flex;
+    flex-wrap: wrap;
+    z-index: 1;
+    position: relative;
+    & .icon {
+        width: 60px;
+
+        & img {
+            transition: $transition-base;
+        }
+    }
+    &:hover {
+        & .icon {
+            img {
+                filter: brightness(1) grayscale(97%) contrast(12);
+                transform: scale(1.04);
+                transition: $transition-base;
+            }
+        }
+    }
+    & .content {
+        width: calc(100% - 60px);
+        padding-left: 20px;
+        & .title {
+            font-size: 18px;
+            font-weight: 500;
+            font-family: $headings-font-family;
+
+            margin-bottom: 5px;
+
+            color: $headings-color;
+            text-transform: uppercase;
+            line-height: 1.3;
+
+            @media #{$large-mobile} {
+                font-size: 16px;
+            }
+        }
+        & p {
+            font-size: 14px;
+            line-height: 1.71;
+            font-family: $font-family-base;
+            font-weight: 400;
+
+            color: $headings-color;
+        }
+    }
+}

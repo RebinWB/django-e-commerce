@@ -1,0 +1,64 @@
+/*====================  
+    7.5 Login Register Page CSS
+====================*/
+.login-wrapper, .register-wrapper{
+    background: $gray-100 none repeat scroll 0 0;
+    padding: 37px 40px;
+    text-align: left;
+    overflow: hidden;
+    @media #{$extra-small-mobile}{
+        padding: 25px 10px;
+    }
+    & .title{
+        font-weight: 600;
+        font-size: 34px;
+        font-family: $headings-font-family;
+        color: $headings-color;
+        @media #{$large-mobile, $tablet-device}{
+            font-size: 26px;
+        }
+    }
+    & .desc-content {
+        font-size: 14px;
+    }
+    & .single-input-item{
+        & input{
+            background:$white none repeat scroll 0 0;
+            border-radius: 0;
+            box-shadow: none;
+            color: $dark;
+            font-size: 14px;
+            height: 40px;
+            margin-bottom: 20px;
+            padding-left: 10px;
+            padding-right: 10px;
+            width: 100%;
+            border: 1px solid $white;
+            &:focus{
+                border: 1px solid $primary;
+            }
+        }
+
+        & input[type="checkbox"] + label:before{
+            border-color: $primary;
+        }
+    }
+    & .forget-pwd {
+        font-size: 14px;
+        &:hover {
+            color: $primary;
+        }
+    }
+    & .lost-password {
+        & a{
+            font-size: 14px;
+            transition: $transition-base;
+            &:hover {
+                color: $primary;
+                padding-left: 5px;
+                transition: $transition-base;
+                text-decoration: underline;
+            }
+        }
+    }
+}
