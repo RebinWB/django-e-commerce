@@ -1,0 +1,80 @@
+/*====================  
+    7.12 About Page CSS
+====================*/
+.about-feature-bg {
+    background-image: url(../images/about/2.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    position: relative;
+
+    &::before {
+        content: "";
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        background: $white;
+        opacity: .9;
+        top: 0;
+        left: 0;
+    }
+}
+.about_content {
+    & .title {
+        font-size: 30px;
+        font-family: $headings-font-family;
+        color: $headings-color;
+        margin-bottom: 20px;
+        font-weight: 600;
+        @media #{$large-mobile} {
+            font-size: 26px;
+        }
+        @media #{$extra-small-mobile} {
+            font-size: 24px;
+        }
+    }
+    & .sub-title {
+        font-size: 16px;
+        font-family: $headings-font-family;
+        color: $headings-color;
+        margin-bottom: 20px;
+        font-weight: 600;
+        line-height: 1.4;
+        @media #{$small-mobile} {
+            font-size: 15px;
+        }
+    }
+    & p {
+        font-size: 14px;
+    }
+}
+.single-service {
+    & .title {
+        font-size: 30px;
+        font-family: $headings-font-family;
+        color: $headings-color;
+        margin-bottom: 20px;
+        font-weight: 600;
+        @media #{$large-mobile} {
+            font-size: 26px;
+        }
+        @media #{$extra-small-mobile} {
+            font-size: 24px;
+        }
+    }
+    & p {
+        font-size: 14px;
+        @media #{$tablet-device} {
+            width: 320px;
+            margin: 0 auto;
+        }
+        @media #{$large-mobile} {
+            width: 400px;
+            margin: 0 auto;
+        }
+        @media #{$extra-small-mobile} {
+            width: 280px;
+            margin: 0 auto;
+        }
+    }
+}

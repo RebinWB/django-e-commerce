@@ -1,0 +1,147 @@
+/*====================  
+    7.8 Cart Page CSS
+====================*/
+/*-- Cart Table Style --*/
+.cart-table{
+    & .table {
+        margin: 0;
+        white-space: nowrap;
+        & thead {
+            & tr{
+                & th {
+                    border-color: $gray-100;
+                    border-bottom: 0 solid transparent;
+                    color: $dark;
+                    font-size: 15px;
+                    font-weight: 700;
+                    padding: 15px 20px;
+                    text-align: center;
+                    @media #{$desktop-device}{
+                        min-width: 180px;
+                    }
+                }
+            }
+        }
+        & tr{
+            border-color: $gray-100;
+            & .pro-thumbnail, & .pro-price, & .pro-quantity, & .pro-subtotal, & .pro-remove{
+                min-width: 177px;
+                text-align: center;
+                align-items: center;
+            }
+        }
+        & tbody{
+            & td {
+                border-color: $gray-100;
+                text-align: center;
+                padding: 10px 20px;
+                vertical-align: middle;
+                font-weight: 600;
+                color: $dark;
+                font-size: 14px;
+                & a {
+                    color: $dark;
+                    font-weight: 500;
+                    text-transform: capitalize;
+                    &:hover{
+                        color: $primary;
+                    }
+                    &.btn{
+                        color: $white;
+                    }
+                    &.check-btn{
+                        color: $white;
+                    }
+                }
+                &.pro-remove{
+                    & a{
+                        & i{
+                            font-size: 24px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+/*-- Cart Update Option style --*/
+.cart-update-option {
+	border: 1px solid $gray-100;
+	margin-top: 15px;
+	padding: 15px 20px;;
+	align-items: center;
+    justify-content: space-between;
+    @media #{$laptop-device, $desktop-device}{
+		margin-top: 0;
+		border-top: 0 solid transparent;
+    }
+    .apply-coupon-wrapper {
+        width: 55%;
+        @media #{$tablet-device, $large-mobile}{
+            width: auto;
+        }
+        form {
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+            input {
+                border: 1px solid $gray-100;
+                font-size: 14px;
+                padding: 12px 10px;
+                outline: none;
+                margin-right: 15px;
+                width: 100%;
+                transition: 0.4s;
+                height: 46px;
+                &:focus, &:active{
+                    border-color: $primary;
+                }
+            }
+        }
+        button{
+            @media #{$large-mobile}{
+                display: block;
+                width: 100%;
+                margin-top: 15px;
+                border-radius: 0;
+                margin-bottom: 30px;
+            }
+        }
+    }
+}
+/*-- Cart Calculator style --*/
+.cart-calculator-wrapper {
+	margin-top: 30px;
+    background-color: #f8f8f8;
+    h3 {
+        color: $dark;
+        font-size: 18px;
+        font-weight: 500;
+        padding: 27px 15px 25px;
+        margin-bottom: 0;
+    }
+    a {
+        border-radius: 0;
+        text-align: center;
+    }
+    .cart-calculate-items {
+        font-weight: 500;
+        .table {
+            margin-bottom: 0;
+            tr{
+                td {
+                    color: $dark;
+                    padding: 15px 20px;
+                    &:nth-child(2){
+                        color: $dark;
+                        text-align: right;
+                    }
+                    &.total-amount {
+                        color: $primary;
+                        font-weight: 700;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,33 @@
+/*====================  
+    6.7 Pagination CSS 
+====================*/
+.pagination {
+    & .page-item {
+        & .page-link {
+            &.active {
+                background: $primary;
+                color: $white;
+                border-color: $primary;
+            }
+
+            &:hover {
+                background: $primary;
+                color: $white;
+                border-color: $primary;
+            }
+
+            &:focus {
+                box-shadow : none;
+            }
+            background: $white;
+            color: $dark;
+            padding: 5px 15px;
+            border-radius: 0px;
+        }
+    }
+
+    @media #{$extra-small-mobile} {
+        margin-top: 10px;
+    }
+}
+  

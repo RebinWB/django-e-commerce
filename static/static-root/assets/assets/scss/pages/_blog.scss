@@ -1,0 +1,280 @@
+/*====================  
+    7.1 Blog Page CSS
+====================*/
+.blog-content {
+    & .post-meta {
+        display: flex;
+        flex-wrap: wrap;
+        line-height: 1;
+        margin-top: 30px;
+        font-weight: 400;
+        font-family: $headings-font-family;
+        color: #8c8c8c;
+        font-size: 14px;
+
+        & span {
+            &:after{
+                content: "/";
+                padding: 0 5px;
+            }
+            &:last-child{
+                &:after{
+                    display: none;
+                }
+            }
+            & a {
+                color: #8c8c8c;
+
+                &:hover {
+                    color: $primary;
+                }
+            }
+        }
+    }
+
+    & .title {
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 1.16;
+        display: block;
+        margin-top: 15px;
+        margin-bottom: 12px;
+        font-family: $headings-font-family;
+        color: $headings-color;
+
+        @media #{$large-mobile, $desktop-device, $tablet-device} {
+            font-size: 22px;
+        }
+
+        @media #{$extra-small-mobile} {
+            font-size: 20px;
+        }
+
+        & a {
+            color: $headings-color;
+            &:hover {
+                color: $primary;
+            }
+        }
+    }
+
+    & p {
+        margin-bottom: 20px;
+        font-size: 14px;
+    }
+
+    & .btn {
+        font-size: 14px;
+        padding: 15px 25px;
+        font-weight: 600;
+    }
+}
+
+.blog-single-post-wrapper {
+    .blog-overlay {
+        position: relative;
+        display: block;
+        overflow: hidden;
+
+        img {
+            transition: 0.4s;
+            width: 100%;
+        }
+    }
+
+    &:hover {
+        .blog-overlay {
+            img {
+                transform: scale(1.1) rotate(1.2deg);
+                transition: 0.4s;
+            }
+        }
+    }
+}
+
+/*-- Blog Details style  --*/
+.blog-details {
+    & .image {
+        & img {
+            width: 100%;
+            transition: $transition-base; 
+        }
+    }
+    & .content{
+        & .title {
+            font-size: 30px;
+            font-weight: 600;
+            color: $headings-color;
+            font-family: $headings-font-weight;
+            @media #{$large-mobile, $tablet-device} {
+                font-size: 26px;
+            }
+            @media #{$extra-small-mobile} {
+                font-size: 22px;
+            }
+        }
+        & .meta-list {
+            display: flex;
+            flex-wrap: wrap;
+            color: $gray-600;
+            align-items: center;
+            & .meta-item {
+                font-size: 14px;
+                margin-right: 10px;
+                & + .meta-item{
+                    &::before{
+                        content: "|";
+                        margin-right: 10px; 
+                    }
+                }
+            }
+            a{
+                &:hover{
+                    color: $primary;
+                }
+            }
+        }
+        & .desc {
+            font-size: 14px;
+        }
+    }
+    & .blockquote {
+        font-size: 14px;
+        line-height: 2;
+        position: relative;
+        background-color: #f8f8f8;
+        color: $headings-color;
+        font-family: $headings-font-family;
+        font-style: italic;
+        font-weight: 400;
+        padding: 30px 35px 30px;            
+        
+        @media #{$small-mobile} {
+            font-size: 14px;
+        }
+        &:before{
+            background-color: $gray-600;
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 3px;
+        }
+        & .blockquote-footer {
+            color: $dark;
+            font-size: 15px;
+            font-weight: 600;
+        }
+    }
+    & .share-article{
+        text-align: center;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 10px;
+        & .left-side{
+            float: left;
+
+            & a {
+                &:hover{
+                    color: $primary;
+                }
+            }
+        }
+        & .right-side{
+            float: right;
+
+            & a {
+                &:hover{
+                    color: $primary;
+                }
+            }
+        }
+        & .share-title{
+            @media #{$extra-small-mobile} {
+                display: none;
+            }
+        }
+    }
+    & .widget-social {
+        text-align: center;
+    }
+}
+.comment-area-wrapper{
+    & .title{
+        font-size: 24px;
+        font-weight: 700;
+        color: $headings-color;
+    }
+    & .single-comment-wrap{
+        display: flex;
+        flex-direction: row;
+        &.comment-reply{
+            padding-left: 50px;
+            @media #{$extra-small-mobile} {
+                padding-left: 20px;
+            }
+        }
+        & .author-thumb{
+            margin-right: 10px;
+            width: 80px;
+            height: 80px;
+            & img{
+                width: 100%;
+                border-radius: 10px;
+            }
+            @media #{$extra-small-mobile} {
+                width: 50px;
+                height: 50px;
+            }
+        }
+        & .comments-info{
+            width: 90%;
+            & p {
+                font-size: 14px;
+            }
+            & .author{
+                font-size: 12px;
+                color: $headings-color;
+
+                & a {
+                    color: $headings-color;
+                    font-size: 14px;
+
+                    &:hover {
+                        color: $primary;
+                    }
+                }
+            }
+            & .btn-reply{
+                font-size: 12px;
+                color: $headings-color;
+                &:hover{
+                    color: $primary;
+                }
+            }
+        }
+    }
+}
+.blog-comment-form-wrapper{
+    & .title{
+        font-size: 24px;
+        font-weight: 700;
+        color: $headings-color;
+    }
+    & .comment-box{
+        & .input-area{
+            padding: 10px 15px;
+            background: #f8f8f8;
+            border: 1px solid transparent;
+            transition: .3s;
+            &:focus{
+                border: 1px solid $primary;
+                transition: .3s;
+                outline: 0px;
+                box-shadow: none;
+            }
+        }
+    }
+}

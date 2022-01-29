@@ -1,0 +1,23 @@
+/*====================  
+    5.2 Footer Bottom CSS
+====================*/
+.footer-bottom {
+    background: #e7e8e8;
+    padding: 20px 0;
+
+    & .copyright-content {
+        & p{
+            font-size: 14px;
+            font-family: $headings-font-family;
+            color: #5a5a5a;
+            font-weight: 400;
+        }
+
+        & a {
+            font-weight: 700;
+            &:hover {
+                color: $primary;
+            }
+        }
+    }
+}
