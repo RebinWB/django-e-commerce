@@ -69,15 +69,13 @@
                                                 href="{{ item.product.get_absolute_url }}">{{ item.product.name }} </a><br>
                                             <p class="text-black-50">Size: {{ item.size }}</p></td>
                                         <td class="pro-price"><span>{{ item.product.price }}</span></td>
-                                        <td class="pro-quantity">
-                                            <div class="quantity">
-                                                <div class="cart-plus-minus">
-                                                    <input class="cart-plus-minus-box" value="{{ item.quantity }}"
+                                        <td class="">
+                                            <div class="">
+                                                <div class="">
+                                                    <input class="cart-plus-minus-box form-control" value="{{ item.quantity }}"
                                                            type="text">
-                                                    <div class="dec qtybutton">-</div>
-                                                    <div class="inc qtybutton">+</div>
-                                                    <div class="dec qtybutton"><i class="fa fa-minus"></i></div>
-                                                    <div class="inc qtybutton"><i class="fa fa-plus"></i></div>
+                                                    <a href="{% url "decrease_quantity" cart_id=item.id %}"><button class="btn btn-primary mt-3 me-5"><i class="fa fa-minus"></i></button></a>
+                                                    <a href="{% url "increase_quantity" cart_id=item.id %}"><button class="btn btn-primary mt-3 ms-5"><i class="fa fa-plus"></i></button></a>
                                                 </div>
                                             </div>
                                         </td>

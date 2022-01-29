@@ -16,6 +16,11 @@ import json
 
 @login_required(login_url="login")
 def add_to_cart(request):
+    """
+    add product in order
+
+    add to it if there is an unpaid order. Otherwise create one 
+    """
     if request.user.is_authenticated:
         order_form = OrderForm(request.POST or None)
         if order_form.is_valid():
@@ -48,6 +53,9 @@ def add_to_cart(request):
 
 @login_required(login_url="login")
 def cart_products_list(request):
+    """
+    list of all carts in unpaid order
+    """
     context = {
         "order": None,
         "cart": None,
@@ -75,6 +83,9 @@ def cart_products_list(request):
 
 @login_required(login_url="login")
 def remove_product(request, *args, **kwargs):
+    """
+    remove cart from order if exists
+    """
     if request.user.is_authenticated:
         cart_id = kwargs["cart_id"]
         user_id = request.user.id
@@ -88,9 +99,63 @@ def remove_product(request, *args, **kwargs):
             cart.delete()
         return redirect("open_order")
 
+@login_required(login_url="login")
+def add_cart_quantity(request, *args, **kwargs):
+    """
+    add a item in the cart quntity
+    """
+    user = request.user
+    if user is not None:
+        try:
+            open_order = Order.objects.get(user=user, is_paid=False)
+        except Order.DoesNotExist:
+            raise Http404
+
+        cart_id = kwargs["cart_id"]
+        try:
+            cart = open_order.cart_set.get(id=cart_id)
+            cart.quantity += 1 
+            cart.total = cart.total + cart.product.price
+            cart.save()
+        except Cart.DoesNotExist:
+            raise Http404
+
+    return redirect("open_order")
+
+
+@login_required(login_url="login")
+def decrease_cart_quantity(request, *args, **kwargs):
+    """
+    delete one item from cart
+    """
+    user = request.user
+    if user is not None:
+        try:
+            open_order = Order.objects.get(user=user, is_paid=False)
+        except Order.DoesNotExist:
+            raise Http404
+
+        cart_id = kwargs["cart_id"]
+        try:
+            cart = open_order.cart_set.get(id=cart_id)
+            cart.quantity -= 1 
+            cart.total = cart.total - cart.product.price
+            cart.save()
+        except Cart.DoesNotExist:
+            raise Http404
+
+        if cart.quantity <= 0:  # delete cart if it quantity smaller than 1 item
+            cart.delete()
+
+    return redirect("open_order")
 
 @login_required(login_url="login")
 def order_delivery_details_view(request):
+    """
+    order delivery information view
+
+    if any information exists about user's delivery, initial form with those
+    """
     if request.user.is_authenticated:
         user_id = request.user.id
         user = Account.objects.get(id=user_id)
@@ -155,6 +220,9 @@ def order_delivery_details_view(request):
 
 @login_required(login_url="login")
 def checkout(request):
+    """
+    checkout view
+    """
     if request.user.is_authenticated:
         user_id = request.user.id
         user = Account.objects.get(id=user_id)
