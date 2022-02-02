@@ -31,17 +31,31 @@ def product_details(request, *args, **kwargs):
     request.session.modified = True
     request.session.set_expiry(0)
 
-    comment_form = CommentForm(request.POST or None, initial={"product_id": product_id, "user_id": request.user.id})
-    order_form = OrderForm(request.POST or None, initial={"product_id": product_id})
-    wishlist_form = WishlistForm(request.POST or None, initial={"product_id": product_id})
+    # this product
     product = Products.objects.get(id=product_id)
-    comments = Comment.objects.filter(product=product, is_accept=True)
+
+    # comment form
+    comment_form = CommentForm(request.POST or None, initial={"product_id": product_id, "user_id": request.user.id})
+    
+    # add to order form
+    order_form = OrderForm(request.POST or None, initial={"product_id": product_id})
+    
+    # add to wishlist form
+    wishlist_form = WishlistForm(request.POST or None, initial={"product_id": product_id})
+    
+    # all product accepted comments
+    comments = Comment.objects.filter(product=product, is_accept=True).all()
+    
+    # all related products to this product [based on category field]
+    related_products = Products.objects.filter(category=product.category).all()
+
     context = {
         "product": product,
         "order_form": order_form,
         "wishlist_form": wishlist_form,
         "comment_form": comment_form,
         "comments": comments,
+        "related_products": related_products,
 
     }
 
