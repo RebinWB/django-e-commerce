@@ -1,0 +1,7 @@
+Hey {{ user_name|safe }}
+
+You Added {{ product.name|safe }} to Your Cart. 
+Complete Your Shopping!
+
+
+My Online Shop!

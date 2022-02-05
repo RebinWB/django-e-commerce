@@ -1,5 +1,4 @@
 import datetime
-
 from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
 from django.shortcuts import render, redirect
@@ -9,6 +8,7 @@ from orders.forms import OrderForm, OrderDetailsForm
 from orders.models import Order, Cart, OrderDetails
 from products.models import Products
 from django.http import Http404, HttpResponse
+from .tasks import send_email_for_add_to_cart
 import requests
 import json
 
@@ -21,34 +21,33 @@ def add_to_cart(request):
 
     add to it if there is an unpaid order. Otherwise create one 
     """
-    if request.user.is_authenticated:
-        order_form = OrderForm(request.POST or None)
-        if order_form.is_valid():
-            try:
-                order = Order.objects.get(user_id=request.user.id, is_paid=False)
-            except:
-                order = Order.objects.create(user_id=request.user.id, is_paid=False)
-                order.save()
-            product_id = order_form.cleaned_data["product_id"]
-            quantity = order_form.cleaned_data["quantity"]
-            size_title = request.POST.get("size_form")
-            # print(size_title)
+    user = Account.objects.get(id=request.user.id)
+    order_form = OrderForm(request.POST or None)
+    if order_form.is_valid():
+        try:
+            order = Order.objects.get(user=user, is_paid=False)
+        except:
+            order = Order.objects.create(user=user, is_paid=False)
+            order.save()
+        product_id = order_form.cleaned_data["product_id"]
+        quantity = order_form.cleaned_data["quantity"]
+        size_title = request.POST.get("size_form")
 
-            product = Products.objects.get(id=product_id)
-            size = product.size.get(title=size_title)
-            total = quantity * product.price
-            try:
-                cart = order.cart_set.get(product=product, size=size)
-                cart.quantity += quantity
-                cart.total = cart.total + total
-                cart.save()
-                return redirect("open_order")
-            except:
-                cart = order.cart_set.create(product=product, quantity=quantity, total=total, size=size)
-                cart.save()
-                return redirect("open_order")
+        product = Products.objects.get(id=product_id)
+        size = product.size.get(title=size_title)
+        total = quantity * product.price
+        try:
+            cart = order.cart_set.get(product=product, size=size)
+            cart.quantity += quantity
+            cart.total = cart.total + total
+            cart.save()
+        except:
+            cart = order.cart_set.create(product=product, quantity=quantity, total=total, size=size)
+            cart.save()
 
-    return redirect("login")
+        send_email_for_add_to_cart.apply_async((user.username, user.email, product.name), countdown=10)  # send email to user 
+        return redirect("open_order")
+
 
 
 @login_required(login_url="login")

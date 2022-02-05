@@ -12,8 +12,6 @@ SECRET_KEY = 'django-insecure-ja0^ytpi*f10wzkc+o#bz6@f4-iw)-_&l#k3ol3n_v9=k$1@j7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-if DEBUG:
-    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"  # for sending email in development state ONLY
 
 ALLOWED_HOSTS = []
 
@@ -30,6 +28,7 @@ INSTALLED_APPS = [
     'django_render_partial',
     'rest_framework',
     'rest_framework.authtoken',
+    'django_celery_results',
 
     # My apps
     'products',
@@ -154,9 +153,26 @@ USE_L10N = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / "static/static-root"
+STATICFILES_DIRS = [BASE_DIR / "assets"]
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / "static/media-root" 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# celery config
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_BACKEND = 'django-db'
+
+
+# email configuration
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'ENTER YOUR EMAIL'
+EMAIL_HOST_PASSWORD = 'ENTER YOUR EMAIL APP PASSWORD'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'ENTER YOUR EMAIL'
