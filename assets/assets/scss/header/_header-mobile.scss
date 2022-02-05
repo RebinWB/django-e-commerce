@@ -1,0 +1,164 @@
+/*====================  
+    3.3 Header Mobile CSS
+====================*/
+/*  Mobile Menu */
+.mobile-menu-wrapper {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: $transition-base;
+    transition-duration: 700ms;
+    z-index: 9999;
+    &.open{
+        opacity: 1;
+        visibility: visible;
+        & .mobile-menu-inner {
+            transform: none;
+        }
+    }
+}
+
+// Mobile Menu Inner
+.mobile-menu-inner {
+    width: 100%;
+    height: 100%;
+    width: 350px;
+    background-color: $white;
+    box-shadow: -1px 0px 20px -5px #aaa;
+    position: relative;
+    transform: translateX(calc(100% - 50px));
+    transition: $transition-base;
+    transition-duration: 700ms;
+    margin-left: auto;
+    position: relative;
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    @media #{$small-mobile} {
+        width: 320px;
+    }
+    & .offcanvas-btn-close{
+        display: flex;
+        justify-content: flex-start;
+        font-size: 50px;
+        color: $dark;
+        opacity: 1;
+        & i{
+            cursor: pointer;
+            transform: rotate(0deg);
+            transition: $transition-base;
+            &:hover{
+                color: $primary;
+                transition: $transition-base;
+                transform: rotate(90deg);
+            }
+        }
+    }
+    .widget-social {
+        justify-content: flex-start;
+        display: flex;
+    }
+}
+
+// Main Mobile Menu
+.mobile-menu {
+    text-align: start;
+    padding: 10px 0px 30px;
+    & > .has-children {
+        & > a {
+            & i {
+                transform: rotate(0deg);
+                transition: $transition-base;
+            }
+        }
+        & .dropdown {
+            
+            & a {
+                font-size: 14px;
+                padding-top: 5px;
+                display: block;
+                padding-left: 15px;
+                font-weight: 400;
+            }
+        }
+        &.active{
+            & > a {
+                color: $primary;
+                & i {
+                    transform: rotate(180deg);
+                    transition: $transition-base;
+                }
+            } 
+        }
+    }
+    & > li {
+        margin-bottom: 15px;
+        & > a {
+            color: $dark;
+            font-size: 15px;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            align-items: center;
+            &:hover {
+                color: $primary;
+            }
+        }
+    }
+}
+
+// Contact Link
+.contact-links {
+    text-align: left;
+    margin-bottom: 40px;
+
+    li{
+        color: $secondary;
+        font-size: 14px;
+        font-weight: 500;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        margin-bottom: 10px;
+        a{
+            color: $secondary;
+            &:hover{
+                color: $primary;
+            }
+        }
+        i{
+            color: $primary;
+            margin-right: 10px;
+            font-size: 22px;
+        }
+    }
+}
+
+// Language-Currency
+.offcanvas-lag-curr {
+    & .title {
+        font-size: 16px;
+        font-weight: 600;
+        text-align: left;
+        color: $dark;
+
+    }
+    & .header-top-lan-curr-link {
+        & .dropdown {
+            &.header-top-curr{
+                & .dropdown-toggle{
+                    &::before{
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}

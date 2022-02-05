@@ -1,0 +1,285 @@
+/*====================  
+    6.8 Sidebar CSS 
+====================*/
+/*-- Shop Sidebar Area Start --*/
+.sidebar_widget{
+    & .widget_inner{
+        & .widget-title{
+            font-weight: 500;
+            font-size: 20px;
+            line-height: 1;
+            position: relative;
+            padding-bottom: 10px;
+            font-family: $headings-font-family;
+            &:after{
+                background-color: #ebebeb;
+                position: absolute;
+                content: "";
+                left: 0;
+                bottom: 0;
+                height: 1px;
+                width: 100%;
+            }
+
+            @media #{$small-mobile} {
+                font-size: 18px;
+            }
+        }
+        & .search-box{
+            display: flex;
+            flex-wrap: wrap;
+            .form-control{
+                border: 1px solid #e1e1e1;
+                padding: 10px;
+                transition: .3s;
+                display: block;
+                border-radius: 0;
+                height: 45px;
+                font-size: 14px;
+                width: calc(100% - 40px);
+                &:focus{
+                    border-color: $primary;
+                    box-shadow: none;
+                }
+            }
+            .btn {
+                border-radius: 0;
+                color: $white;
+                height: 45px;
+                width: 40px;
+                display: flex;
+                align-items: center;
+                padding: 0px;
+                &:focus {
+                    box-shadow: none;
+                }
+            }
+        }
+        & .widget-list{
+            & .category-menu{
+                overflow: inherit;
+                > li{
+                    line-height: 1;
+                    > a{
+                        font-family: $headings-font-family;
+                        color: $headings-color;
+                        font-size: 14px;
+                        font-weight: 500;
+                        display: flex;
+                        flex-wrap: wrap;
+                        justify-content: space-between;
+                        i {
+                            transition: .3s;
+                        }
+                        &:hover{
+                            color: $primary;
+                        }
+                    }
+                    &.active {
+                        > a{
+                            i{
+                                transform: rotate(180deg);
+                                transition: .3s;
+                            }
+                        }
+                    }
+
+                    & > .dropdown {
+                        padding-left: 10px;
+                        & li {
+                            & a {
+                                font-size: 13px;
+                                font-family: $headings-font-family;
+                                font-weight: 400;
+                                padding-top: 15px;
+                                display: block;
+                            }
+                        }
+                    }
+                }
+            }
+            & .slider-range-submit{
+                height: 30px;
+                line-height: 30px;
+                padding: 0 20px;
+                text-transform: capitalize;
+                color: $white;
+                background: $dark;
+                border: 0;
+                border-radius: 30px;
+                font-size: 14px;
+
+                &:focus {
+                    outline: 0px;
+                    box-shadow: 0px;
+                }
+
+                &:hover {
+                    background: $primary;
+                }
+            }
+            & .slider-range-amount {
+                background: none;
+                border: none;
+                font-size: 12px;
+                text-align: center;
+                width: 150px;
+                color: $headings-color;
+                border: 1px solid $dark;
+                border-radius: 30px;
+
+                @media #{$desktop-device} {
+                    width: 130px;
+                }
+
+                &:focus{
+                    border: 1px solid $primary;
+                    border-radius: 30px;
+                    outline: none;
+                    box-shadow: none;
+                }
+            }
+            & .sidebar-body{
+                & .tags{
+                    li{
+                        display: inline-block;
+                    }
+                }
+                & .checkbox-container{
+                    li{
+                        padding: 10px 0;
+                        line-height: 1;
+
+                        &:last-child {
+                            padding-bottom: 0px;
+                        }
+                    }
+                    .custom-control-input{
+                        margin-right: 10px;
+                        cursor: pointer;
+                    }
+                    .custom-control-label{
+                        font-size: 14px;
+                        color: $dark;
+                        text-transform: capitalize;
+                        font-weight: 500;
+                        font-family: $headings-font-family;
+                        line-height: 1;
+                        cursor: pointer;
+                    }
+                }
+                & .single-product-list {
+                    & .thumb {
+                        width: 60px;
+                        height: 100%;
+
+                        & img {
+                            width: 100%;
+                            height: auto;
+                        }
+                    }
+                    & .content {
+                        & .title {
+                            font-size: 14px;
+                            font-weight: 600;
+                        }
+                        width: calc(100% - 60px);
+                        padding-left: 15px;
+                    }
+                }
+            }
+        }
+    }
+}
+.sidebar-list{
+    > li{
+        >a{
+            font-size: 14px;
+            color: $headings-color;
+            text-transform: capitalize;
+            line-height: 1;
+            position: relative;
+            display: block;
+            padding: 10px 0;
+            font-weight: 500;
+            font-family: $headings-font-family;
+            &:hover{
+                color: $primary;
+            }
+        }
+        &:last-child{
+            a{
+                padding-bottom: 0;
+            }
+        }
+    }
+    .btn{
+        height: 20px;
+        max-width: 90px;
+        min-width: 20px;
+        position: relative;
+        border: 1px solid #ebebeb;
+        display: inline-block;
+        margin: 0 0px 0px 20px;
+        border-radius: 0px;
+        &:focus{
+            box-shadow: none;
+            border-color: $primary;
+            outline: 0;
+        }
+    }
+}
+.tags li a {
+    border: 1px solid #ebebeb;
+    line-height: 1;
+    padding: 10px 15px;
+    display: inline-block;
+    margin-right: 5px;
+    margin-bottom: 10px;
+    color: $dark;
+    border-radius: 25px;
+    font-weight: 500;
+    font-size: 14px;
+    font-family: $headings-font-family;
+    &:hover{
+        color: $white;
+        background: $primary;
+        border-color: $primary;
+    }
+}
+/* ---Range Slider--- */
+.ui-slider-horizontal{
+    height: 2px;
+	background: $dark;
+	border: none;
+	width: 92%;
+	margin: 0 auto;
+    margin-bottom: 22px;
+    .ui-slider-range {
+        background: $black;
+        height: 2px;
+        top: -1px;
+    }
+}
+.ui-state-default, 
+.ui-widget-content .ui-state-default, 
+.ui-widget-header .ui-state-default {
+	background: $dark;
+	width: 15px;
+    height: 15px;
+    top: -7px;
+	cursor: pointer;
+    border-radius: 50%;
+    border: 2px solid $dark;
+    transition: .3s;
+	&:focus{
+		outline: none;
+		border-radius: 100%;
+    }
+    
+    &:hover {
+        background: $primary;
+        border-color: $primary;
+        transition: .3s;
+    }
+}

@@ -1,0 +1,305 @@
+/*====================  
+    7.2 Shop Page CSS
+====================*/
+/*-- Shop Toolbar Area Start Here --*/
+.shop_toolbar_wrapper{
+    padding: 10px 15px;
+    border: 1px solid #ebebeb;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    @media #{$extra-small-mobile}{
+        flex-direction: column;
+        justify-content: center;
+    }
+    
+    & .shop_toolbar_btn{
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        @media #{$extra-small-mobile}{
+            margin-bottom: 10px;
+        }
+        button{
+            &.active{
+                border: 1px solid $primary;
+                color: $primary;
+            }
+            &:focus {
+                box-shadow: none;
+                outline: none;
+            }
+            &:hover {
+                color: $primary;
+                border-color: $primary;
+            }
+            border: 1px solid #ebebeb;
+            font-size: 20px;
+            text-transform: uppercase;
+            margin-right: 10px;
+            line-height: 1;
+            cursor: pointer;
+            transition: 0.4s;
+            padding: 6px 5px 4px;
+            background-color: transparent;
+            &:last-child{
+                margin-right: 0px;
+            }
+
+        }
+    }
+
+    & .shop-top-bar-right {
+        display: flex;
+
+        & .shop-short-by {
+            margin-right: 20px;
+
+            & .nice-select {
+                border-radius: 0px;
+                border-color: #ebebeb;
+                height: 32px;
+                line-height: 30px;
+                & .list {
+                    width: 160px;
+                    padding: 10px 0;
+                    border-radius: 0px;
+                    z-index: 99;
+                }
+                & li {
+                    margin: 0 10px;
+                    padding: 10px 0;
+                    background: transparent;
+                    line-height: 1;
+                    min-height: 20px;
+                    &:hover {
+                        padding-left: 5px;
+                        display: block;
+                        color: $primary;
+                    }
+                }
+                &:focus {
+                    border-color: $primary;
+                }
+                & .current {
+                    color: $dark;
+                    font-size: 14px;
+                }
+            }
+        }
+
+        @media #{$extra-small-mobile} {
+            flex-direction: column;
+            align-items: center;
+
+            & .shop-short-by {
+                margin-right: 0px;
+                margin-bottom: 15px;
+            }
+        }
+    }
+
+    & .shop-top-bar-left {
+        & .shop-top-show {
+            & span {
+                color: $dark;
+                font-size: 14px;
+            } 
+        }
+    }
+}
+/*-- Shop Toolbar Area End Here --*/
+
+/* Shop Wrapper Start */
+.shop_wrapper {
+    &.grid_list{
+        transition: .3s;
+        animation-duration: 1s;
+        animation-name: fadeIn;
+
+        & .product-inner {
+            display: flex;
+        }
+    }
+
+    &.grid_4, &.grid_5, &.grid_3 {
+        transition: .6s;
+        animation-duration: 2s;
+        animation-name: fadeIn;
+        margin-bottom: -30px;
+
+        & .product {
+            margin-bottom: 30px;
+
+            & .thumb {
+                & img {
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    &.grid_4 {
+        & .product {
+            border-right: 1px solid #ebebeb;
+            &:nth-of-type(4n+4) {
+                border-right: 0px;
+            }
+
+            @media #{$desktop-device, $tablet-device} {
+                &:nth-of-type(3n+3) {
+                    border-right: 0px;
+                }
+                &:nth-of-type(4n+4) {
+                    border-right: 1px solid #ebebeb;
+                }
+                &:last-child {
+                    border-right: 0px;
+                }
+            }
+            @media #{$large-mobile} {
+                &:nth-of-type(2n+2) {
+                    border-right: 0px;
+                }
+            }
+            @media #{$small-mobile} {
+                border-right: 0px;
+            }
+        }
+    }
+
+    &.grid_3 {
+        & .product {
+            border-right: 1px solid #ebebeb;
+            &:nth-of-type(3n+3) {
+                border-right: 0px;
+            }
+            @media #{$large-mobile} {
+                &:nth-of-type(3n+3) {
+                    border-right: 1px solid #ebebeb;
+                }
+                &:nth-of-type(2n+2) {
+                    border-right: 0px;
+                }
+            }
+        }
+    }
+
+    & .content {
+        p {
+            display: none;
+        }
+
+        & .shop-list-btn {
+            & .wishlist, & .compare {
+                display: none;
+            }
+        }
+    }
+}
+.grid_list {
+    & .product {
+        & .product-inner {
+            margin-bottom: 30px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #ebebeb;
+
+            @media #{$small-mobile} {
+                flex-direction: column;
+            }
+        }
+        &:last-child {
+            & .product-inner {
+                margin-bottom: 0px;
+                padding-bottom: 0px;
+                border-bottom: 0px;
+            }
+        }
+        & .thumb {
+            width: 370px;
+
+            & img {
+                width: 100%;
+            }
+
+            @media #{$tablet-device} {
+                width: 250px;
+            }
+            @media #{$large-mobile} {
+                width: 180px;
+                height: 100%;
+            }
+            @media #{$small-mobile} {
+                width: 100%;
+                height: 100%;
+            }
+        }
+        & .actions {
+            top: 50%;
+            left: 50%;
+            right: auto;
+            transform: translate(-50%, -50%);
+            & .wishlist, & .compare {
+                display: none;
+            }
+            & .action {
+                & + .action {
+                    margin-top: 0px;
+                }
+            }
+        }
+        & .content {
+            width: calc(100% - 370px);
+            text-align: start;
+            padding-top: 0px;
+            align-self: center;
+            padding-left: 30px;
+            
+            @media #{$tablet-device} {
+                width: calc(100% - 270px);
+            }
+
+            @media #{$large-mobile} {
+                width: calc(100% - 180px);
+            }
+
+            @media #{$small-mobile} {
+                width: 100%;
+                padding-left: 10px;
+            }
+
+            & .title {
+                font-size: 18px;
+                font-weight: 700;
+            }
+            & .ratings, & .price {
+                justify-content: flex-start;
+                margin-bottom: 10px;
+            }
+            & p {
+                display: block;
+                font-size: 14px;
+            }
+            & .shop-list-btn {
+                display: flex;
+                flex-wrap: wrap;
+                margin-top: 20px;
+                & .wishlist, & .compare {
+                    display: block;
+
+                    font-weight: 600;
+                }
+
+                & .btn {
+                    &:first-child {
+                        margin-right: 10px;
+                    }
+                    &:last-child {
+                        margin-left: 10px;
+                    }
+                }
+            }
+        }
+    }
+}
+/* Shop Wrapper End */

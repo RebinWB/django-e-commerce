@@ -1,0 +1,86 @@
+/*====================  
+    6.3 Banner CSS  
+====================*/
+.banner {
+    position: relative;
+    overflow: hidden;
+    &:hover {
+        & .banner-image {
+            & a {
+                & img {
+                    transform: scale(1.1);
+                }
+            }
+        }
+
+        & .small-banner-content {
+            & .btn {
+                background: $primary;
+            }
+
+            & .btn-hover-dark {
+                background: $dark;
+            }
+        }
+    }
+    & .banner-image {
+        overflow: hidden;
+
+        & a {
+            display: block;
+
+            & img {
+                width: 100%;
+                transform: scale(1);
+                transition: all .5s ease 0s;
+            }
+        }
+    }
+
+    & .info {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 30px;
+    }
+
+    & .small-banner-content {
+        & .sub-title {
+            color: #6c6c6c;
+            font-size: 18px;
+            line-height: 1;
+            font-family: $headings-font-family;
+            margin-bottom: 15px;
+
+            @media #{$desktop-device}{
+                margin-bottom: 10px;
+            }
+            @media #{$extra-small-mobile}{
+                font-size: 16px;
+                margin-bottom: 10px;
+            }
+
+            & span {
+                color: $primary;
+                font-size: 22px;
+                font-weight: 600;
+            }
+        }
+
+        & .title {
+            font-size: 24px;
+            font-weight: 600;
+            color: $headings-color;
+            font-family: $headings-font-family;
+            padding-bottom: 15px;
+
+            @media #{$desktop-device}{
+                margin: 0px;
+            }
+            @media #{$extra-small-mobile}{
+                margin: 0px;
+                font-size: 20px;
+            }
+        }
+    }
+}
