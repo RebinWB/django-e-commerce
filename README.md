@@ -37,6 +37,7 @@ preparing DataBase:
 ```
 python3 manage.py makemigrations
 python3 manage.py migrate
+python3 manage.py collectstatic
 ```
 
 create super user for access to admin section:
